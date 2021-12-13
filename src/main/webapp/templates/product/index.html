@@ -38,6 +38,18 @@
     <div class="card">
         <strong th:text="${category.name}">Category Title</strong>
     </div>
+    <div id="select">
+        <select name="category" id="sort-category">
+            <option value="">Select category</option>
+            <option value="camera">Cameras</option>
+            <option value="computer">Computers</option>
+            <option value="console">Consoles</option>
+            <option value="phone">Phones</option>
+            <option value="smartWatch">Smart Watches</option>
+            <option value="tablet">Tablets</option>
+            <option value="tv">TVs</option>
+        </select>
+    </div>
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
