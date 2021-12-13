@@ -35,9 +35,6 @@
 </div>
 
 <div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
     <div id="select">
         <select name="category" id="sort-category">
             <option value="">Select category</option>
@@ -49,6 +46,10 @@
             <option value="tablet">Tablets</option>
             <option value="tv">TVs</option>
         </select>
+    </div>
+
+    <div class="card">
+        <strong th:text="${category.name}">Category Title</strong>
     </div>
 
     <div id="products" class="row">
