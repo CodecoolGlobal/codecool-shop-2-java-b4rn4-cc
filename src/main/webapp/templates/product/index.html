@@ -38,15 +38,9 @@
 <div class="container">
     <div id="select-category">
         <label for="sort-category">Select category:</label>
-        <select name="category" id="sort-category">
-            <option value="">Select category</option>
-            <option value="camera">Cameras</option>
-            <option value="computer">Computers</option>
-            <option value="console">Consoles</option>
-            <option value="phone">Phones</option>
-            <option value="smartWatch">Smart Watches</option>
-            <option value="tablet">Tablets</option>
-            <option value="tv">TVs</option>
+        <select name="category" th:each="cat,iter : ${categories}" id="sort-category">
+            <option value="" >Select category</option>
+            <option th:attr="value=${cat.id}" th:text="${cat.name}">Category Name</option>
         </select>
     </div>
 
