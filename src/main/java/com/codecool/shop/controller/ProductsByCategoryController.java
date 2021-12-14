@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/tablet", "/console", "/smart watch", "/cell phone", "/computer", "/camera", "/television"})
-public class TabletsController extends HttpServlet {
+public class ProductsByCategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
