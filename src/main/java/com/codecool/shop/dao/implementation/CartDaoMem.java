@@ -1,8 +1,8 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.Product;
 
 
 public class CartDaoMem implements CartDao {
@@ -26,7 +26,7 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public void addToCart(String productName, ProductDao product) {
+    public void addToCart(String productName, Product product) {
         data.add(productName, product);
     }
 }
