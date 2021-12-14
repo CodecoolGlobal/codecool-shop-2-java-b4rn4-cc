@@ -28,13 +28,16 @@ public class ProductsByCategoryController extends HttpServlet {
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
         String requestURI = request.getRequestURI();
         int categoryId = getCategoryId(requestURI);
+        String supplier = request.getParameter("supplier");
+        int supplierId = 0;
+        if (supplier != null) {
+            supplierId = Integer.parseInt(supplier);
+        }
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
 
-        context.setVariable("category", productService.getProductCategory(categoryId));
-        context.setVariable("products", productService.getProductsForCategory(categoryId));
-        context.setVariable("categories", productService.getProductCategories());
-        context.setVariable("suppliers", productService.getProductSuppliers());
+        setupContext(context, supplierId, productService, categoryId);
 
         engine.process("product/products.html", context, response.getWriter());
     }
@@ -57,5 +60,16 @@ public class ProductsByCategoryController extends HttpServlet {
                 return 7;
         }
         return 0;
+    }
+
+    private void setupContext(WebContext context, int supplierId, ProductService productService, int categoryId) {
+        context.setVariable("categories", productService.getProductCategories());
+        context.setVariable("suppliers", productService.getProductSuppliers(categoryId));
+        context.setVariable("category", productService.getProductCategory(categoryId));
+        if (supplierId == 0) {
+            context.setVariable("products", productService.getProductsForCategory(categoryId));
+        } else {
+            context.setVariable("products", productService.getProductsForSupplierInCategory(categoryId, supplierId));
+        }
     }
 }
