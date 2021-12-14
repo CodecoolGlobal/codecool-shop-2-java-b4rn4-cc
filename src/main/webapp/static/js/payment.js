@@ -3,7 +3,13 @@ const creditCardElement = document.getElementById("credit-card");
 const content = document.getElementById("payment-content");
 
 paypalElement.addEventListener("click", getPaypalPayment);
+creditCardElement.addEventListener("click", getCardPayment);
 
+function getCardPayment() {
+    let paymentContainer = document.getElementById("payment-options");
+    paymentContainer.style.display = "none";
+    buildCardPayment();
+}
 function getPaypalPayment() {
     let paymentContainer = document.getElementById("payment-options");
     paymentContainer.style.display = "none";
@@ -43,7 +49,7 @@ function buildPaypalPayment() {
     otherPaymentDiv.innerText = "Pay with Credit Card";
 
     content.append(imgDiv, msgDiv, emailInput, passwordInput, payButton, otherPaymentDiv);
-    // todo add event listener to build other payment option
+    otherPaymentDiv.addEventListener("click", getCardPayment);
 }
 
 function buildCardPayment() {
