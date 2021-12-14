@@ -29,4 +29,15 @@ public class CartService {
 //                cartDao.addToCart(productName, product);
         }
 
+        public String sumPrice(){
+                int sum = 0;
+                String slicedPrice = "";
+                for(Product product : cartDao.reviewCart()){
+                        String strPrice = product.getPrice();
+                        slicedPrice = strPrice.substring(0, strPrice.length()-4);
+                        sum += Integer.parseInt(slicedPrice);
+                }
+                return String.valueOf(sum);
+        }
+
 }
