@@ -20,6 +20,10 @@ public class ProductService{
         this.supplierDao = supplierDao;
     }
 
+    public Product getProductDaoById(int productId){
+        return productDao.find(productId);
+    }
+
     public ProductCategory getProductCategory(int categoryId){
         return productCategoryDao.find(categoryId);
     }
