@@ -27,8 +27,9 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/add-to-cart"})
 public class CartController extends HttpServlet{
 
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
@@ -36,10 +37,12 @@ public class CartController extends HttpServlet{
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
         CartService cartService = new CartService(cartDataStore);
         String productID = request.getParameter("id");
-        cartService.addToCart(productService.getProductDaoById(parseInt(productID)));
+        cartService.addToCart(productService.getProductDaoById(Integer.parseInt(productID)));
     }
 
-    private int parseInt(String productID) {
-        return parseInt(productID);
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("teszt");
     }
 }
