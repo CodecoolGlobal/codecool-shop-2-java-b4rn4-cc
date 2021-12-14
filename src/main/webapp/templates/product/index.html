@@ -28,7 +28,7 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
-    <script src="/static/js/main.js" defer></script>
+<!--    <script src="/static/js/main.js" defer></script>-->
 </head>
 
 <body>
@@ -37,30 +37,9 @@
     <h1>Codecool Shop</h1>
 </div>
 
+<div th:replace="navBar.html :: copy"></div>
 <div class="container">
-    <div id="select-category">
-        <label for="sort-category">Select category:</label>
-        <select name="category" id="sort-category">
-            <option value="">Select category</option>
-            <p th:each="cat,iter : ${categories}">
-                <option th:attr="value=${cat.id}" th:text="${cat.name}">Category Name</option>
-            </p>
-        </select>
-    </div>
 
-    <div id="select-supplier">
-        <label for="sort-supplier">Select Supplier:</label>
-        <select name="supplier" id="sort-supplier">
-            <option value="">Select Supplier</option>
-            <p th:each="sup : ${suppliers}">
-                <option th:attr="value=${sup.id}" th:text="${sup.name}">Supplier Name</option>
-            </p>
-        </select>
-    </div>
-
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
