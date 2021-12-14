@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/tablet")
+@WebServlet(urlPatterns = {"/tablet", "/console", "/smart watch", "/cell phone", "/computer", "/camera", "/television"})
 public class TabletsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,15 +26,36 @@ public class TabletsController extends HttpServlet {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
-
+        String requestURI = request.getRequestURI();
+        int categoryId = getCategoryId(requestURI);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
 
-        context.setVariable("category", productService.getProductCategory(1));
-        context.setVariable("products", productService.getProductsForCategory(1));
+        context.setVariable("category", productService.getProductCategory(categoryId));
+        context.setVariable("products", productService.getProductsForCategory(categoryId));
         context.setVariable("categories", productService.getProductCategories());
         context.setVariable("suppliers", productService.getProductSuppliers());
 
-        engine.process("product/tablets.html", context, response.getWriter());
+        engine.process("product/products.html", context, response.getWriter());
+    }
+
+    private int getCategoryId(String requestURI) {
+        switch (requestURI) {
+            case "/tablet":
+                return 1;
+            case "/console":
+                return 2;
+            case "/cell%20phone":
+                return 3;
+            case "/smart%20watch":
+                return 4;
+            case "/computer":
+                return 5;
+            case "/camera":
+                return 6;
+            case "/television":
+                return 7;
+        }
+        return 0;
     }
 }
