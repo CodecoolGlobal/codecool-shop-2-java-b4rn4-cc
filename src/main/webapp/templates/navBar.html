@@ -4,7 +4,6 @@
 <div id="nav-container" th:fragment="copy">
 
     <div th:each="cat : ${categories}" id="select-category">
-        <div><a href="/">Main Page</a></div>
         <div><a th:attr="href='/' + ${cat.name.toLowerCase()}" th:text="${cat.name}">Category name</a></div>
     </div>
 
