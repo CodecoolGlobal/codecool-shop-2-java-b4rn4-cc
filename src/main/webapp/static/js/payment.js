@@ -2,7 +2,13 @@ const paypalElement = document.getElementById("paypal-img");
 const creditCardElement = document.getElementById("credit-card");
 const content = document.getElementById("payment-content");
 
+paypalElement.addEventListener("click", getPaypalPayment);
 
+function getPaypalPayment() {
+    let paymentContainer = document.getElementById("payment-options");
+    paymentContainer.style.display = "none";
+    buildPaypalPayment();
+}
 
 function buildPaypalPayment() {
     content.innerHTML = "";
