@@ -3,10 +3,10 @@
 <body>
 <div id="select-supplier" th:fragment="copy">
     <div th:if="${category}">
-        <form th:attr="action='/?sortBy=' + ${category.id} + '&supplier='">
+        <form th:attr="action='/' + ${category.name.toLowerCase()} + '?supplier='">
             <label for="sort-supplier">Select Supplier:</label>
             <select name="supplier" id="sort-supplier">
-                <option value="">Select Supplier</option>
+                <option value="0">Select Supplier</option>
                 <p th:each="sup : ${suppliers}">
                     <option th:attr="value=${sup.id}" th:text="${sup.name}">Supplier Name</option>
                 </p>

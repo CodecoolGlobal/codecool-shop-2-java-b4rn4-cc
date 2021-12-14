@@ -13,7 +13,7 @@ public interface ProductDao {
     void remove(int id);
 
     List<Product> getAll();
-    List<Product> getBy(Supplier supplier);
+    List<Product> getBy(Supplier supplier, List<Product> data);
     List<Product> getBy(ProductCategory productCategory);
 
 }
