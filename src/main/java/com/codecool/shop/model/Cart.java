@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Cart {
 //    private HashMap<String, Product> cart = new HashMap<String, Product>();
+
     private List<Product> cart = new ArrayList<>();
 
     public void add(Product product){
@@ -16,6 +17,10 @@ public class Cart {
 
     public List<Product> getCart() {
         return cart;
+    }
+
+    public void delete(int index){
+        cart.remove(index);
     }
 
 //    public void add(String productName, Product product){
