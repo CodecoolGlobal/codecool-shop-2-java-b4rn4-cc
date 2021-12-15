@@ -10,21 +10,10 @@
 </head>
 <body>
 <div><h1>Payment</h1></div>
-<!--todo show the cart items for UI/UX-->
-<!-- <div id="cart-content">
-    <div id="cart-header">
-        <div id="product-name-field">Product Name</div>
-        <div id="amount">Quantity</div>
-        <div id="Price">Price</div>
-    </div>
-    <div id="cart-item" th:each="product : ${cart}">
-        <div id="product-img"></div>
-        <div id="product-name" th:text="${product}">Product Name</div>
-        <div id="product-amount"></div>
-        <div id="product-price"></div>
-    </div>
-</div> -->
-<div th:replace="navBar.html :: copy"></div>
+<div id="cart-content">
+    <div>Total price:</div>
+    <div th:text="${totalPrice}">Total Price</divth>
+</div>
 <div id="payment-options">
     <div id="paypal-img">
         <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-150px.png" alt="PayPal Logo">
