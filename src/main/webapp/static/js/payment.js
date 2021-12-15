@@ -1,6 +1,11 @@
 const paypalElement = document.getElementById("paypal-img");
 const creditCardElement = document.getElementById("credit-card");
 const content = document.getElementById("payment-content");
+const form = document.createElement("form");
+
+form.action = "/payment";
+form.method = "POST";
+content.append(form);
 
 paypalElement.addEventListener("click", getPaypalPayment);
 creditCardElement.addEventListener("click", getCardPayment);
@@ -17,7 +22,7 @@ function getPaypalPayment() {
 }
 
 function buildPaypalPayment() {
-    content.innerHTML = "";
+    form.innerHTML = "";
     let imgDiv = document.createElement("div");
     let msgDiv = document.createElement("div");
     let emailInput = document.createElement("input");
@@ -36,6 +41,7 @@ function buildPaypalPayment() {
     emailInput.required = true;
     emailInput.placeholder = "Email";
     emailInput.type = "email";
+    emailInput.name = "email";
 
     passwordInput.id = "pw-field";
     passwordInput.required = true;
@@ -48,13 +54,12 @@ function buildPaypalPayment() {
     otherPaymentDiv.id = "other-payment-option";
     otherPaymentDiv.innerText = "Pay with Credit Card";
 
-    content.append(imgDiv, msgDiv, emailInput, passwordInput, payButton, otherPaymentDiv);
+    form.append(imgDiv, msgDiv, emailInput, passwordInput, payButton, otherPaymentDiv);
     otherPaymentDiv.addEventListener("click", getCardPayment);
 }
 
 function buildCardPayment() {
-    content.innerHTML = "";
-    let emailDiv = document.createElement("div");
+    form.innerHTML = "";
     let cardNumberDiv = document.createElement("div");
     let cardHolderDiv = document.createElement("div");
     let CCVDiv = document.createElement("div");
@@ -64,18 +69,10 @@ function buildCardPayment() {
 
     otherPaymentDiv.addEventListener("click", getPaypalPayment);
 
-    let emailField = document.createElement("input");
     let cardNumberField = document.createElement("input");
     let holderField = document.createElement("input");
     let CCVField = document.createElement("input");
     let expireField = document.createElement("input");
-
-    emailField.id = "email-field";
-    emailField.autocomplete = "off";
-    emailField.required = true;
-    emailField.placeholder = "Email";
-    emailField.type = "email";
-    emailDiv.append(emailField);
 
     cardNumberField.required = true;
     cardNumberField.placeholder = "XXXXXXX-XXXXXXXX";
@@ -83,7 +80,7 @@ function buildCardPayment() {
     cardNumberDiv.append(cardNumberField);
 
     holderField.required = true;
-    holderField.placeholder = "MasterCard";
+    holderField.placeholder = "Jhon Smith";
     holderField.autocomplete = "off";
     cardHolderDiv.append(holderField);
 
@@ -100,5 +97,5 @@ function buildCardPayment() {
 
     otherPaymentDiv.innerText = "Pay with PayPal";
 
-    content.append(emailDiv, cardHolderDiv, cardNumberDiv, expireDiv, CCVDiv, payButton, otherPaymentDiv);
+    form.append(cardHolderDiv, cardNumberDiv, expireDiv, CCVDiv, payButton, otherPaymentDiv);
 }
