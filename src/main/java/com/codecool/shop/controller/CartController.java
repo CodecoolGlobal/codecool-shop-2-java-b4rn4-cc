@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/add-to-cart"})
+@WebServlet(urlPatterns = {"/cart"})
 public class CartController extends HttpServlet{
 
 
@@ -42,7 +42,22 @@ public class CartController extends HttpServlet{
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("teszt");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CartDao cartDataStore = CartDaoMem.getInstance();
+        CartService cartService = new CartService(cartDataStore);
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("products", cartService.getCartDao());
+        context.setVariable("price", cartService.sumPrice());
+        engine.process("product/cart.html", context, resp.getWriter());
+    }
+
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CartDao cartDataStore = CartDaoMem.getInstance();
+        CartService cartService = new CartService(cartDataStore);
+        String productID = req.getParameter("id");
+        cartService.deleteFromCart(Integer.parseInt(productID));
     }
 }

@@ -13,7 +13,7 @@ function addButton() {
     for (const addButton of addButtonList){
         addButton.addEventListener("click", () => {
             const id = addButton.id;
-            postData(`/add-to-cart?id=${id}`);
+            postData(`/cart?id=${id}`);
         });
     }
 
@@ -24,4 +24,21 @@ function addButton() {
     }
 }
 
+function deleteButton(){
+    const deleteButtonList = document.getElementsByClassName("delete-button");
+    for (const deleteButton of deleteButtonList){
+        deleteButton.addEventListener("click", () => {
+            const id = deleteButton.id;
+            deleteData(`/cart?id=${id}`).then(r => location.reload());
+        })
+    }
+
+    async function deleteData(url = '') {
+        await fetch(url, {
+            method: 'DELETE'
+        });
+    }
+}
+
 addButton();
+deleteButton();
