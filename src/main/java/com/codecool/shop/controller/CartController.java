@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/add-to-cart"})
+@WebServlet(urlPatterns = {"/cart"})
 public class CartController extends HttpServlet{
 
 
