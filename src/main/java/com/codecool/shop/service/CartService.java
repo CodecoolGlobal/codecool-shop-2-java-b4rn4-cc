@@ -41,7 +41,7 @@ public class CartService {
                         slicedPrice = strPrice.substring(0, strPrice.length()-4);
                         sum += Integer.parseInt(slicedPrice);
                 }
-                return String.valueOf(sum);
+                return String.valueOf(sum) + " HUF";
         }
 
 }

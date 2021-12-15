@@ -2,12 +2,13 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div id="nav-container" th:fragment="copy">
+    <nav>
+        <div th:each="cat : ${categories}" id="select-category">
+            <div><a th:attr="href='/' + ${cat.name.toLowerCase()}" th:text="${cat.name}">Category name</a></div>
 
-    <div th:each="cat : ${categories}" id="select-category">
-        <div><a th:attr="href='/' + ${cat.name.toLowerCase()}" th:text="${cat.name}">Category name</a></div>
-
-    </div>
-    <div><a class="btn btn-success" href="/cart">Cart</a> </div>
+        </div>
+        <div><a class="btn btn-success" href="/cart">Cart</a></div>
+    </nav>
 </div>
 
 </body>
