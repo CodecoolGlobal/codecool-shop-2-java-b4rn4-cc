@@ -29,6 +29,10 @@ public class CartService {
 //                cartDao.addToCart(productName, product);
         }
 
+        public void deleteFromCart(int index){
+                cartDao.deleteFromCart(index);
+        }
+
         public String sumPrice(){
                 int sum = 0;
                 String slicedPrice = "";
