@@ -38,6 +38,11 @@ public class CartDaoMem implements CartDao {
         return data.getCart();
     }
 
+    @Override
+    public void deleteFromCart(int index) {
+        data.delete(index);
+    }
+
     //    @Override
 //    public void addToCart(String productName, Product product) {
 //        data.add(productName, product);
