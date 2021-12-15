@@ -51,4 +51,13 @@ public class CartController extends HttpServlet{
         context.setVariable("price", cartService.sumPrice());
         engine.process("product/cart.html", context, resp.getWriter());
     }
+
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CartDao cartDataStore = CartDaoMem.getInstance();
+        CartService cartService = new CartService(cartDataStore);
+        String productID = req.getParameter("id");
+        cartService.deleteFromCart(Integer.parseInt(productID));
+    }
 }
