@@ -12,10 +12,10 @@ nav{
 .thumbnail
 {
     margin-bottom: 20px;
-    padding: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+    padding: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
 }
 .thumbnail img
 {
@@ -39,11 +39,11 @@ nav{
 }
 .item.list-group-item .thumbnail
 {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .item.list-group-item .caption
 {
-    padding: 9px 9px 0px 9px;
+    padding: 9px 9px 0 9px;
 }
 .item.list-group-item:nth-of-type(odd)
 {
@@ -67,4 +67,8 @@ nav{
 .list-group-item-text
 {
     margin: 0 0 11px;
+}
+
+#credit-card img {
+    max-width: 150px;
 }
