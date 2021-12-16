@@ -58,7 +58,7 @@
                     </div>
                     <div class="card-text">
                         <button type="button" th:attr="id=${prod.getId()}" class="add-button">Add to cart</button>
-                        <span id="popup" class="popup-text">Added to cart</span>
+                        <span th:attr="id='popup' + ${prod.id}" class="popup-text">Added to cart</span>
                     </div>
                 </div>
             </div>
