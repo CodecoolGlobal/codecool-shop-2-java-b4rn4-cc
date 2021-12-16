@@ -145,3 +145,10 @@ nav div:last-child a {
     color: white;
     padding: 15px 38%;
 }
+
+#select-supplier input {
+    border-color: #8EB7EB;
+    background-color: #8EB7EB;
+    border-radius: 20px;
+    border-style: none;
+}
