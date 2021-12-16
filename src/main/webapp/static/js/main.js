@@ -1,5 +1,6 @@
+const addButtonList = document.getElementsByClassName("add-button");
+
 function addButton() {
-    const addButtonList = document.getElementsByClassName("add-button");
     for (const addButton of addButtonList){
         addButton.addEventListener("click", () => {
             const id = addButton.id;
@@ -32,3 +33,22 @@ function deleteButton(){
 
 addButton();
 deleteButton();
+setupEventListenersForPopup();
+
+function setupEventListenersForPopup() {
+    for (const addButtonListElement of addButtonList) {
+        addButtonListElement.addEventListener("click", showPopup);
+    }
+}
+
+function showPopup(e) {
+    let button = e.target;
+    let id = button.id;
+    let popupToShow = document.getElementById("popup"+id);
+    popupToShow.classList.toggle("show");
+    setTimeout((event) => hidePopup(popupToShow), 2200);
+}
+
+function hidePopup(popup) {
+    popup.classList.toggle("show");
+}
