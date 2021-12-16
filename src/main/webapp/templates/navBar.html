@@ -3,9 +3,9 @@
 <body>
 <div id="nav-container" th:fragment="copy">
     <nav>
-        <div th:each="cat : ${categories}" id="select-category">
-            <div><a th:attr="href='/' + ${cat.name.toLowerCase()}" th:text="${cat.name}">Category name</a></div>
-
+        <div id="select-category" class="menu">
+            <a class="category" th:each="cat : ${categories}"
+               th:attr="href='/' + ${cat.name.toLowerCase()}, id=${cat.name.toLowerCase()}" th:text="${cat.name}">Category name</a>
         </div>
         <div><a class="btn btn-success" href="/cart">&#128722;</a></div>
     </nav>
