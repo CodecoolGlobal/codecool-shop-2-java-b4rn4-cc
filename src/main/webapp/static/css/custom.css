@@ -46,6 +46,10 @@ nav{
     color: black;
 }
 
+nav div:last-child a {
+    background: linear-gradient(to bottom right, #B8D7FF, #8EB7EB);
+    border-color: #8EB7EB;
+}
 
 .glyphicon {
     margin-right:5px;
@@ -119,7 +123,7 @@ nav{
     width: 40%;
     display: flex;
     flex-direction: column;
-    border: #45a049 solid 2px;
+    border: #8EB7EB solid 2px;
     border-radius: 50px 50px 55px 55px;
 }
 
@@ -131,7 +135,7 @@ nav{
 
 #message div:last-child {
     color: white;
-    background-color: #45a049;
+    background-color: #8EB7EB;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
