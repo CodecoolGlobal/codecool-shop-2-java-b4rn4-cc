@@ -4,7 +4,24 @@ nav{
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
     align-items: center;
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
 }
+
+.menu a{
+    margin-right: .75rem;
+    text-decoration: none;
+    color: gray;
+}
+
+.menu a:hover{
+    color: black;
+}
+
+.menu a.active{
+    color: black;
+}
+
 
 .glyphicon {
     margin-right:5px;
