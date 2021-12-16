@@ -28,6 +28,7 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/popup.css"/>
     <script src="/static/js/main.js" defer></script>
 </head>
 
@@ -56,6 +57,7 @@
                     </div>
                     <div class="card-text">
                             <button type="button" th:attr="id=${prod.getId()}" class="add-button">Add to cart</button>
+                            <span id="popup" class="popup-text">Added to cart</span>
                     </div>
                 </div>
             </div>
