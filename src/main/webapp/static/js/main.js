@@ -16,7 +16,7 @@ function addButton() {
 }
 
 function deleteButton(){
-    const deleteButtonList = document.getElementsByClassName("delete-button");
+    const deleteButtonList = document.getElementsByClassName("remove");
     for (const deleteButton of deleteButtonList){
         deleteButton.addEventListener("click", () => {
             const id = deleteButton.id;
