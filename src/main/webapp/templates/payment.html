@@ -13,11 +13,13 @@
 </head>
 <body>
 <div><h1>Payment</h1></div>
+
+<div th:replace="navBar.html :: copy"></div>
+
 <div id="cart-content">
     <div>Total price:</div>
     <div th:text="${totalPrice}">Total Price</div>
 </div>
-<div th:replace="navBar.html :: copy"></div>
 <div id="payment-options">
     <div id="paypal-img">
         <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-150px.png" alt="PayPal Logo">
