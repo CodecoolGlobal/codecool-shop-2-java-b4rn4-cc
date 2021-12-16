@@ -1,24 +1,30 @@
 const paypalElement = document.getElementById("paypal-img");
 const creditCardElement = document.getElementById("credit-card");
 const content = document.getElementById("payment-content");
-const form = document.createElement("form");
+// const form = document.createElement("form");
+const creditCardPayment = document.getElementById("credit-card-payment")
+const paypalPayment = document.getElementById("paypal-payment")
 
-form.action = "/payment";
-form.method = "POST";
-content.append(form);
+// form.action = "/payment";
+// form.method = "POST";
+// content.append(form);
 
 paypalElement.addEventListener("click", getPaypalPayment);
 creditCardElement.addEventListener("click", getCardPayment);
 
 function getCardPayment() {
-    let paymentContainer = document.getElementById("payment-options");
-    paymentContainer.style.display = "none";
-    buildCardPayment();
+    // let paymentContainer = document.getElementById("payment-options");
+    // paymentContainer.style.display = "none";
+    creditCardPayment.style.display = "flex";
+    paypalPayment.style.display = "none";
+    // buildCardPayment();
 }
 function getPaypalPayment() {
-    let paymentContainer = document.getElementById("payment-options");
-    paymentContainer.style.display = "none";
-    buildPaypalPayment();
+    // let paymentContainer = document.getElementById("payment-options");
+    // paymentContainer.style.display = "none";
+    creditCardPayment.style.display = "none";
+    paypalPayment.style.display = "flex";
+    // buildPaypalPayment();
 }
 
 function buildPaypalPayment() {
