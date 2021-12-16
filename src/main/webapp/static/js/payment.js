@@ -24,6 +24,7 @@ function getPaypalPayment() {
     // paymentContainer.style.display = "none";
     creditCardPayment.style.display = "none";
     paypalPayment.style.display = "flex";
+    paypalPayment.style.justifyContent = "center"
     // buildPaypalPayment();
 }
 
