@@ -1,4 +1,4 @@
-.popup-text {
+.card-text .popup-text {
     visibility: hidden;
     width: 160px;
     background-color: #555;
@@ -8,13 +8,13 @@
     padding: 8px 0;
     position: absolute;
     z-index: 1;
-    bottom: 125%;
-    left: 50%;
+    bottom: 10%;
+    left: 25%;
     margin-left: -80px;
 }
 
 /* Popup arrow */
-.popup-text::after {
+.card-text .popup-text::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -26,7 +26,7 @@
 }
 
 /* Toggle this class - hide and show the popup */
-.popup .show {
+.card-text .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
