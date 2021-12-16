@@ -43,6 +43,8 @@ public class CartController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("utf-8");
         CartDao cartDataStore = CartDaoMem.getInstance();
         CartService cartService = new CartService(cartDataStore);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

@@ -18,6 +18,8 @@ import java.io.IOException;
 public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("utf-8");
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         CartDao cartDataStore = CartDaoMem.getInstance();
         CartService cartService = new CartService(cartDataStore);

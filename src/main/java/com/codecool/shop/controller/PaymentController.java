@@ -43,6 +43,8 @@ public class PaymentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setCharacterEncoding("utf-8");
         CartDao cartDataStore = CartDaoMem.getInstance();
         CartService cartService = new CartService(cartDataStore);
         customer = new Customer(request.getParameter("name"), request.getParameter("email"),
