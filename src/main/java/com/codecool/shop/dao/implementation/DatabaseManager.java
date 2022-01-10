@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -14,6 +15,7 @@ public class DatabaseManager {
     String dbPassword;
     ProductDao productDao;
     SupplierDao supplierDao;
+    ProductCategoryDao productCategoryDao;
 
     public DatabaseManager(String dbName, String dbUserName, String dbPassword) {
         this.dbName = dbName;
@@ -26,6 +28,7 @@ public class DatabaseManager {
         // TODO: 2022. 01. 10. add the jdbc classes later
         productDao = new ProductDaoJdbc(dataSource);
         supplierDao = new SupplierDaoJdbc(dataSource);
+        productCategoryDao = new ProductCategoryDaoJdbc(dataSource);
     }
 
     private DataSource connect() throws SQLException {
@@ -48,5 +51,9 @@ public class DatabaseManager {
 
     public SupplierDao getSupplierDao() {
         return supplierDao;
+    }
+
+    public ProductCategoryDao getProductCategoryDao() {
+        return productCategoryDao;
     }
 }
