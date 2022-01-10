@@ -45,6 +45,7 @@ public class ProductDaoJdbc implements ProductDao {
             ProductCategory category = new ProductCategory(categoryName, "Hardware", "");
             Supplier supplier = new Supplier(supplierName, "");
             Product result = new Product(productName, price, currency, description, category, supplier);
+            result.setId(id);
             return result;
 
         } catch (SQLException e) {
