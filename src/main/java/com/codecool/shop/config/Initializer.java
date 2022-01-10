@@ -118,7 +118,7 @@ public class Initializer implements ServletContextListener {
             productDataStore.add(new Product("Fujigama ZMP 24X", new BigDecimal("10878"), "HUF", "Full HD Digital Camera, 33MP Digital DSLR Camera 0.5X Auto Focus Wide Angle Lens Kit, Rechargeable 24X Optical Zoom Multifunctional Portable Camera, Best Gift For Photography Lovers", camera, fujigama));
             productDataStore.add(new Product("Samsong UHD Televison 65'", new BigDecimal("72854"), "HUF", "Merülj el a képben a szélesebb színskálával! A Crystal Display biztosítja az optimalizált színkifejezést, így minden részletet láthatsz.", television, samsong));
             productDataStore.add(new Product("Samsong FULL HD Televison 45'", new BigDecimal("35624"), "HUF", "Keskeny és elegáns kialakítás, amely a legtisztább képet tárja eléd. Minden elemében, szögében minimalista kialakítású, keret nélküli, amely új mércét állít fel. Magával ragadó látvány tárul eléd.", television, samsong));
-        } else {
+        } else if (dao.equals("jdbc")){
             try {
                 setupDb();
             } catch (SQLException e) {
