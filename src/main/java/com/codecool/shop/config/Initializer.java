@@ -4,20 +4,15 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.CartDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -33,6 +28,7 @@ public class Initializer implements ServletContextListener {
     private String dbPassword;
     private String dbUrl;
     private String dbName;
+    private DatabaseManager databaseManager;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -119,30 +115,17 @@ public class Initializer implements ServletContextListener {
             productDataStore.add(new Product("Samsong UHD Televison 65'", new BigDecimal("72854"), "HUF", "Merülj el a képben a szélesebb színskálával! A Crystal Display biztosítja az optimalizált színkifejezést, így minden részletet láthatsz.", television, samsong));
             productDataStore.add(new Product("Samsong FULL HD Televison 45'", new BigDecimal("35624"), "HUF", "Keskeny és elegáns kialakítás, amely a legtisztább képet tárja eléd. Minden elemében, szögében minimalista kialakítású, keret nélküli, amely új mércét állít fel. Magával ragadó látvány tárul eléd.", television, samsong));
         } else if (dao.equals("jdbc")){
+            databaseManager = new DatabaseManager(dbName, dbUserName, dbPassword);
             try {
-                setupDb();
+                databaseManager.setup();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void setupDb() throws SQLException {
-        DataSource dataSource = connect();
-        // TODO: 2022. 01. 10. add the jdbc classes later
-    }
-
-    private DataSource connect() throws SQLException {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-
-        dataSource.setDatabaseName(dbName);
-        dataSource.setUser(dbUserName);
-        dataSource.setPassword(dbPassword);
-
-        System.out.println("Trying to connect");
-        dataSource.getConnection().close();
-        System.out.println("Connection ok.");
-
-        return dataSource;
+    // use this in controllers
+    public DatabaseManager getDatabaseManager() {
+        return databaseManager;
     }
 }
