@@ -78,5 +78,11 @@ ALTER TABLE ONLY public.cart
 ALTER TABLE ONLY order_history
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.user(id);
 
-
+INSERT INTO supplier (name) VALUES ('Leioa'),
+                                   ('1Phone'),
+                                   ('Samsong'),
+                                   ('Game Station'),
+                                   ('Bintendo'),
+                                   ('ChuWi'),
+                                   ('Fujigama');
 
