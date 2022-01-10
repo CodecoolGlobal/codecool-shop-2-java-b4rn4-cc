@@ -33,6 +33,7 @@ public class ProductController extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         // TODO: 2022. 01. 10. ask mentor if a condition is needed
 //        ProductDao productDataStore = databaseManager.getProductDao();
+//        SupplierDao supplierDataStore = databaseManager.getSupplierDao();
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
