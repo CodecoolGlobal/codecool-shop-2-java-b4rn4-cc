@@ -34,6 +34,10 @@ public class Customer {
         return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public String getName() {
         return name;
     }
@@ -52,5 +56,9 @@ public class Customer {
 
     public String getZipCode() {
         return zipCode;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
