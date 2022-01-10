@@ -6,6 +6,9 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJdbc implements ProductDao {
@@ -32,7 +35,30 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getAll() {
-        return null;
+        try (Connection con = dataSource.getConnection()){
+            String query = "SELECT id, name, description, price, currency FROM product";
+            PreparedStatement st = con.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+
+            List<Product> results = new ArrayList<>();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String description = rs.getString(3);
+                BigDecimal price = rs.getBigDecimal(4);
+                String currency = rs.getString(5);
+                ProductCategory category = new ProductCategory("Tablet", "Hardver", "");
+                Supplier supplier = new Supplier("Samsong", "");
+
+                Product product = new Product(name, price, currency, description, category, supplier);
+                product.setId(id);
+
+                results.add(product);
+            }
+            return results;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
