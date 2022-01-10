@@ -11,6 +11,7 @@ public class DatabaseManager {
     String dbName;
     String dbUserName;
     String dbPassword;
+    ProductDao productDao;
 
     public DatabaseManager(String dbName, String dbUserName, String dbPassword) {
         this.dbName = dbName;
@@ -21,7 +22,7 @@ public class DatabaseManager {
     public void setup() throws SQLException {
         DataSource dataSource = connect();
         // TODO: 2022. 01. 10. add the jdbc classes later
-        ProductDao productDao = new ProductDaoJdbc(dataSource);
+        productDao = new ProductDaoJdbc(dataSource);
     }
 
     private DataSource connect() throws SQLException {
@@ -36,5 +37,9 @@ public class DatabaseManager {
         System.out.println("Connection ok.");
 
         return dataSource;
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
     }
 }
