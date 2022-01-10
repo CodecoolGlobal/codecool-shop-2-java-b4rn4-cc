@@ -92,7 +92,39 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier, List<Product> data) {
-        return null;
+        String supplierName = supplier.getName();
+        String catName = data.get(0).getProductCategory().getName();
+        try (Connection con = dataSource.getConnection()) {
+            String query = "SELECT product.id, product.name, description, price, currency, category.name, supplier.name FROM product " +
+                    " LEFT JOIN category ON product.category_id = category.id" +
+                    " LEFT JOIN supplier ON product.supplier_id = supplier.id" +
+                    " WHERE supplier.name = ? AND category.name = ?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, supplierName);
+            st.setString(2, catName);
+            ResultSet rs = st.executeQuery();
+
+            List<Product> result = new ArrayList<>();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String productName = rs.getString(2);
+                String description = rs.getString(3);
+                BigDecimal price = rs.getBigDecimal(4);
+                String currency = rs.getString(5);
+                String categoryName = rs.getString(6);
+                String suppName = rs.getString(7);
+                ProductCategory productCategory = new ProductCategory(categoryName, "Hardware", "");
+                Supplier supplier1 = new Supplier(suppName, "");
+
+                Product product = new Product(productName, price, currency, description, productCategory, supplier1);
+                product.setId(id);
+
+                result.add(product);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
