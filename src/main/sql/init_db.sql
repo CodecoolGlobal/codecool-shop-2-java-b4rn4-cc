@@ -86,3 +86,10 @@ INSERT INTO supplier (name) VALUES ('Leioa'),
                                    ('ChuWi'),
                                    ('Fujigama');
 
+INSERT INTO category (name) VALUES ('Tablet'),
+                                   ('Console'),
+                                   ('Cell Phone'),
+                                   ('Smart Watch'),
+                                   ('Computer'),
+                                   ('Camera'),
+                                   ('Television');
