@@ -28,7 +28,7 @@ public class Initializer implements ServletContextListener {
     private String dbPassword;
     private String dbUrl;
     private String dbName;
-    private DatabaseManager databaseManager;
+    private static DatabaseManager databaseManager;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -125,7 +125,7 @@ public class Initializer implements ServletContextListener {
     }
 
     // use this in controllers
-    public DatabaseManager getDatabaseManager() {
+    public static DatabaseManager getDatabaseManager() {
         return databaseManager;
     }
 }
