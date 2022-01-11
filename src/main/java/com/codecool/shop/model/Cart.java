@@ -15,8 +15,11 @@ public class Cart {
 
     public Cart() {
     }
-    public Cart(int userId) {
+
+    public Cart(int id, int userId, boolean payed) {
+        this.id = id;
         this.userId = userId;
+        this.payed = payed;
     }
 
     public void add(Product product){
@@ -47,5 +50,9 @@ public class Cart {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }
