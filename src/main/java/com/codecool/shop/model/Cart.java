@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Cart {
+    int id;
     private int userId;
     private boolean payed = false;
 
@@ -42,5 +43,9 @@ public class Cart {
         if (!payed){
             payed = true;
         }
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
