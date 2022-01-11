@@ -12,6 +12,7 @@ public interface CartDao {
     void addToCart(Product product);
     void deleteFromCart(int index);
     List<Product> reviewCart();
-//    void addToCart(String productName, Product product);
-//    HashMap<String, Product> reviewCart();
+    void cartWithSingInUser(int userId);
+    Cart createCart(int userId);
+
 }

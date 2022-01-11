@@ -42,13 +42,12 @@ public class CartDaoMem implements CartDao {
         data.delete(index);
     }
 
-    //    @Override
-//    public void addToCart(String productName, Product product) {
-//        data.add(productName, product);
-//    }
-//
-//    @Override
-//    public HashMap<String, Product> reviewCart() {
-//        return data.getCart();
-//    }
+    @Override
+    public void cartWithSingInUser(int userId) {
+    }
+
+    @Override
+    public Cart createCart(int userId) {
+        return null;
+    }
 }
