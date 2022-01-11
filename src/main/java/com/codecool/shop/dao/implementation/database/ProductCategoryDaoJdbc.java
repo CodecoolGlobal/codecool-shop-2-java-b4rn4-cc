@@ -26,7 +26,24 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public ProductCategory find(int id) {
-        return null;
+        try (Connection con = dataSource.getConnection()) {
+            String query = "SELECT name FROM category WHERE id = ?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setInt(1, id);
+
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+
+            String name = rs.getString(1);
+            ProductCategory category = new ProductCategory(name, "Hardware", "");
+            category.setId(id);
+
+            return category;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
