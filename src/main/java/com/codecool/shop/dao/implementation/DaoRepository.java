@@ -14,8 +14,16 @@ import java.util.Properties;
 
 public class DaoRepository {
 
-    Properties conProp = DatabaseConfig.getConProps();
-    DatabaseManager databaseManager = Initializer.getDatabaseManager();
+    private Properties conProp = DatabaseConfig.getConProps();
+    private DatabaseManager databaseManager = Initializer.getDatabaseManager();
+    private static DaoRepository instance = null;
+
+    public static DaoRepository getInstance() {
+        if (instance == null) {
+            instance = new DaoRepository();
+        }
+        return instance;
+    }
 
     public ProductDao getProductDao() {
         if (conProp.getProperty("dao").equals("memory")) {
