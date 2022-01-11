@@ -7,9 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Cart {
-//    private HashMap<String, Product> cart = new HashMap<String, Product>();
+    private int userId;
+    private boolean payed = false;
 
     private List<Product> cart = new ArrayList<>();
+
+    public Cart() {
+    }
+    public Cart(int userId) {
+        this.userId = userId;
+    }
 
     public void add(Product product){
         cart.add(product);
@@ -23,11 +30,17 @@ public class Cart {
         cart.remove(index);
     }
 
-//    public void add(String productName, Product product){
-//        cart.put(productName, product);
-//    }
-//
-//    public HashMap<String, Product> getCart() {
-//        return cart;
-//    }
+    public int getUserId() {
+        return userId;
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void pay(){
+        if (!payed){
+            payed = true;
+        }
+    }
 }
