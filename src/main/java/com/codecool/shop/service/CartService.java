@@ -2,6 +2,7 @@ package com.codecool.shop.service;
 
 
 import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Product;
 
 import java.util.HashMap;
@@ -23,8 +24,9 @@ public class CartService {
         }
 
 
-        public void addToCart(Product product){
+        public void addToCart(Customer customer, Product product){
                 String productName = product.getName();
+                cartDao.cartWithSingInUser(1);
                 cartDao.addToCart(product);
 //                cartDao.addToCart(productName, product);
         }
