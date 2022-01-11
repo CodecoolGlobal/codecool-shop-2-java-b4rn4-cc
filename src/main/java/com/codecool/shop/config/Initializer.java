@@ -4,7 +4,11 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.dao.implementation.database.DatabaseManager;
+import com.codecool.shop.dao.implementation.memory.CartDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
+import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -13,11 +17,8 @@ import com.codecool.shop.model.Supplier;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.Properties;
 
 @WebListener
@@ -33,15 +34,7 @@ public class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
-        String conConfigPath = rootPath + "connection.properties";
-
-        Properties conProps = new Properties();
-        try {
-            conProps.load(new FileInputStream(conConfigPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Properties conProps = DatabaseConfig.setupApplication();
 
         dao = conProps.getProperty("dao");
         dbUserName = conProps.getProperty("user");
