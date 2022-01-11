@@ -60,6 +60,29 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public List<Supplier> getBy(List<Product> products) {
-        return null;
+        String categoryName = products.get(0).getProductCategory().getName();
+        try (Connection con = dataSource.getConnection()) {
+            String query = "SELECT DISTINCT s.id, s.name from product\n" +
+                    "Left Join category on product.category_id = category.id\n" +
+                    "LEFT JOIN supplier s on s.id = product.supplier_id\n" +
+                    "WHERE category.name = ?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, categoryName);
+            ResultSet rs = st.executeQuery();
+
+            List<Supplier> result = new ArrayList<>();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+
+                Supplier supplier = new Supplier(name, "");
+                supplier.setId(id);
+
+                result.add(supplier);
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
