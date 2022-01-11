@@ -1,13 +1,9 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.config.Initializer;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.database.DatabaseManager;
-import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
-import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.DaoRepository;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -25,17 +21,14 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DatabaseManager databaseManager = Initializer.getDatabaseManager();
+        DaoRepository daoRepository = new DaoRepository();
 
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf-8");
-        // TODO: 2022. 01. 10. ask mentor if a condition is needed
-//        ProductDao productDataStore = databaseManager.getProductDao();
-//        SupplierDao supplierDataStore = databaseManager.getSupplierDao();
-//        ProductCategoryDao productCategoryDataStore = databaseManager.getProductCategoryDao();
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+
+        ProductDao productDataStore = daoRepository.getProductDao();
+        ProductCategoryDao productCategoryDataStore = daoRepository.getProductCategoryDao();
+        SupplierDao supplierDataStore = daoRepository.getSupplierDao();
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
