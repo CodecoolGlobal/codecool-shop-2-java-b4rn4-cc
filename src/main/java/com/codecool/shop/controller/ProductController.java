@@ -21,7 +21,7 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DaoRepository daoRepository = new DaoRepository();
+        DaoRepository daoRepository = DaoRepository.getInstance();
 
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf-8");
