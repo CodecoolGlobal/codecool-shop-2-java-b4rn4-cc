@@ -4,7 +4,11 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.dao.implementation.database.DatabaseManager;
+import com.codecool.shop.dao.implementation.memory.CartDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
+import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -25,7 +29,7 @@ public class Initializer implements ServletContextListener {
     private String dbPassword;
     private String dbUrl;
     private String dbName;
-    private DatabaseManager databaseManager;
+    private static DatabaseManager databaseManager;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -114,7 +118,7 @@ public class Initializer implements ServletContextListener {
     }
 
     // use this in controllers
-    public DatabaseManager getDatabaseManager() {
+    public static DatabaseManager getDatabaseManager() {
         return databaseManager;
     }
 }

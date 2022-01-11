@@ -4,9 +4,10 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.DaoRepository;
+import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
+import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
 import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -22,12 +23,16 @@ import java.io.IOException;
 public class ProductsByCategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        DaoRepository daoRepository = DaoRepository.getInstance();
+
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+
+        ProductDao productDataStore = daoRepository.getProductDao();
+        ProductCategoryDao productCategoryDataStore = daoRepository.getProductCategoryDao();
+        SupplierDao supplierDataStore = daoRepository.getSupplierDao();
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
+
         String requestURI = request.getRequestURI();
         int categoryId = getCategoryId(requestURI);
         String supplier = request.getParameter("supplier");
