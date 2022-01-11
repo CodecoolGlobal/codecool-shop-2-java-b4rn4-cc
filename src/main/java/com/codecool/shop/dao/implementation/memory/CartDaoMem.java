@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class CartDaoMem implements CartDao {
-    private Cart data;
+    static Cart data;
     private static CartDaoMem instance = null;
 
 
@@ -29,17 +29,17 @@ public class CartDaoMem implements CartDao {
 
     @Override
     public void addToCart(Product product) {
-        data.add(product);
+
     }
 
     @Override
     public List<Product> reviewCart() {
-        return data.getCart();
+        return null;
     }
 
     @Override
     public void deleteFromCart(int index) {
-        data.delete(index);
+
     }
 
     @Override

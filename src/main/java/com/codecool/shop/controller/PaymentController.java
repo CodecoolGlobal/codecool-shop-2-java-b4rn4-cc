@@ -2,6 +2,8 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.dao.ProductInCartDao;
+import com.codecool.shop.dao.implementation.DaoRepository;
 import com.codecool.shop.dao.implementation.memory.CartDaoMem;
 import com.codecool.shop.emailSender.EmailSender;
 import com.codecool.shop.model.Customer;
@@ -24,8 +26,10 @@ public class PaymentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CartDao cartDataStore = CartDaoMem.getInstance();
-        CartService cartService = new CartService(cartDataStore);
+        DaoRepository daoRepository = DaoRepository.getInstance();
+        CartDao cartDataStore = daoRepository.getCartDao();
+        ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
+        CartService cartService = new CartService(cartDataStore, productInCartDataStore);
 
         EmailSender sender = new EmailSender();
         String emailAddress = customer.getEmail();
@@ -45,15 +49,16 @@ public class PaymentController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
-        CartDao cartDataStore = CartDaoMem.getInstance();
-        CartService cartService = new CartService(cartDataStore);
+        DaoRepository daoRepository = DaoRepository.getInstance();
+        CartDao cartDataStore = daoRepository.getCartDao();
+        ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();        CartService cartService = new CartService(cartDataStore, productInCartDataStore);
         customer = new Customer(request.getParameter("name"), request.getParameter("email"),
                 request.getParameter("address"), request.getParameter("city"), request.getParameter("state"),
                 request.getParameter("zip"));
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
-        context.setVariable("cart", cartService.getCartDao());
+        context.setVariable("cart", cartService.getProductInCart());
         context.setVariable("totalPrice", cartService.sumPrice());
         engine.process("payment.html", context, response.getWriter());
     }

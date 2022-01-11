@@ -2,6 +2,8 @@ package com.codecool.shop.service;
 
 
 import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.dao.ProductInCartDao;
+import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Product;
 
@@ -10,25 +12,24 @@ import java.util.List;
 
 public class CartService {
         private CartDao cartDao;
+        private ProductInCartDao productInCartDao;
 
-        public CartService(CartDao cartDao){
+        public CartService(CartDao cartDao, ProductInCartDao productInCartDao){
                 this.cartDao = cartDao;
+                this.productInCartDao = productInCartDao;
         }
 
-//        public HashMap<String, Product> getCartDao() {
-//                return cartDao.reviewCart();
-//        }
 
-        public List<Product> getCartDao(){
-                return cartDao.reviewCart();
+        public List<Product> getProductInCart(){
+                Cart cart = cartDao.cartWithSingInUser(1);
+                return productInCartDao.reviewCart(cart.getId());
         }
 
 
         public void addToCart(Customer customer, Product product){
-                String productName = product.getName();
-                cartDao.cartWithSingInUser(1);
+                Cart cart = cartDao.cartWithSingInUser(1);
+                productInCartDao.add(cart.getId(), product);
                 cartDao.addToCart(product);
-//                cartDao.addToCart(productName, product);
         }
 
         public void deleteFromCart(int index){
@@ -38,7 +39,7 @@ public class CartService {
         public String sumPrice(){
                 int sum = 0;
                 String slicedPrice = "";
-                for(Product product : cartDao.reviewCart()){
+                for(Product product : getProductInCart()){
                         String strPrice = product.getPrice();
                         slicedPrice = strPrice.substring(0, strPrice.length()-4);
                         sum += Integer.parseInt(slicedPrice);

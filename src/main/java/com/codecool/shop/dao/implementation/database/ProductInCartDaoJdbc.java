@@ -16,12 +16,12 @@ public class ProductInCartDaoJdbc implements ProductInCartDao {
     }
 
     @Override
-    public void add(int cartId, int productId) {
+    public void add(int cartId, Product product) {
         try (Connection con = dataSource.getConnection()) {
             String query = "INSERT INTO product_in_cart (cart_id, product_id) VALUES (?, ?)";
             PreparedStatement st = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, cartId);
-            st.setInt(2, productId);
+            st.setInt(2, product.getId());
 
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();

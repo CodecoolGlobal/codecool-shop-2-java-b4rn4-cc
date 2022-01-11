@@ -11,9 +11,10 @@ public class Cart {
     private int userId;
     private boolean payed = false;
 
-    private List<Product> cart = new ArrayList<>();
+    private List<Product> cart;
 
     public Cart() {
+        this.cart = new ArrayList<>();
     }
 
     public Cart(int id, int userId, boolean payed) {

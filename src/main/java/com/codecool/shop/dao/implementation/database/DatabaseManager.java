@@ -1,9 +1,6 @@
 package com.codecool.shop.dao.implementation.database;
 
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.*;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
@@ -18,6 +15,7 @@ public class DatabaseManager {
     SupplierDao supplierDao;
     ProductCategoryDao productCategoryDao;
     CartDao cartDao;
+    ProductInCartDao productInCartDao;
 
     public DatabaseManager(String dbName, String dbUserName, String dbPassword) {
         this.dbName = dbName;
@@ -32,7 +30,7 @@ public class DatabaseManager {
         supplierDao = new SupplierDaoJdbc(dataSource);
         productCategoryDao = new ProductCategoryDaoJdbc(dataSource);
         cartDao = new CartDaoJdbc(dataSource);
-
+        productInCartDao = new ProductInCartDaoJdbc(dataSource);
     }
 
     private DataSource connect() throws SQLException {
@@ -63,5 +61,9 @@ public class DatabaseManager {
 
     public CartDao getCartDao() {
         return cartDao;
+    }
+
+    public ProductInCartDao getProductInCartDao() {
+        return productInCartDao;
     }
 }

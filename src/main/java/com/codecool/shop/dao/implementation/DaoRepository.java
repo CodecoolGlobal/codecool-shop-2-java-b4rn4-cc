@@ -2,15 +2,9 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.config.DatabaseConfig;
 import com.codecool.shop.config.Initializer;
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.database.DatabaseManager;
-import com.codecool.shop.dao.implementation.memory.CartDaoMem;
-import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
-import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.memory.*;
 
 import java.util.Properties;
 
@@ -62,6 +56,16 @@ public class DaoRepository {
             return CartDaoMem.getInstance();
         } else if (conProp.getProperty("dao").equals("jdbc")) {
             return databaseManager.getCartDao();
+        } else {
+            return null;
+        }
+    }
+
+    public ProductInCartDao getProductInCartDao() {
+        if (conProp.getProperty("dao").equals("memory")) {
+            return ProductInCartDaoMem.getInstance();
+        } else if (conProp.getProperty("dao").equals("jdbc")) {
+            return databaseManager.getProductInCartDao();
         } else {
             return null;
         }

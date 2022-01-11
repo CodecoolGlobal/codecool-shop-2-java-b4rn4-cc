@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductInCartDao {
 
-    void add(int cartId, int productId);
+    void add(int cartId, Product product);
     void deleteInCartByProductID(int cartId, int productId);
     void deleteByCartID(int cartID);
     List<Product> reviewCart(int cartID);
