@@ -13,11 +13,8 @@ import com.codecool.shop.model.Supplier;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.Properties;
 
 @WebListener
@@ -33,15 +30,7 @@ public class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
-        String conConfigPath = rootPath + "connection.properties";
-
-        Properties conProps = new Properties();
-        try {
-            conProps.load(new FileInputStream(conConfigPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Properties conProps = DatabaseConfig.setupApplication();
 
         dao = conProps.getProperty("dao");
         dbUserName = conProps.getProperty("user");
