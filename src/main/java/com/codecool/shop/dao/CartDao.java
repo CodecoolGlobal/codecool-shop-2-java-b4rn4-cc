@@ -12,7 +12,7 @@ public interface CartDao {
     void addToCart(Product product);
     void deleteFromCart(int index);
     List<Product> reviewCart();
-    void cartWithSingInUser(int userId);
+    Cart cartWithSingInUser(int userId);
     Cart createCart(int userId);
 
 }

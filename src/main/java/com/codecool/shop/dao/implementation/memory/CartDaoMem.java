@@ -43,7 +43,8 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public void cartWithSingInUser(int userId) {
+    public Cart cartWithSingInUser(int userId) {
+        return null;
     }
 
     @Override

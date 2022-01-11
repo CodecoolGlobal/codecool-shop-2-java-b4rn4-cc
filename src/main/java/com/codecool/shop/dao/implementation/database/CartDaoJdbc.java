@@ -11,7 +11,6 @@ import java.util.List;
 
 public class CartDaoJdbc implements CartDao {
     private DataSource dataSource;
-    private Cart cart;
 
     public CartDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -24,23 +23,11 @@ public class CartDaoJdbc implements CartDao {
 
     @Override
     public void addToCart(Product product) {
-        try (Connection con = dataSource.getConnection()) {
-            String query = "INSERT INTO product_in_cart (cart_id, product_id) VALUES (?, ?)";
-            PreparedStatement st = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            st.setInt(1, cart.getId());
-            st.setInt(2, product.getId());
-
-            st.executeUpdate();
-            ResultSet rs = st.getGeneratedKeys();
-            rs.next();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 
     @Override
-    public void cartWithSingInUser(int searchedUserId) {
+    public Cart cartWithSingInUser(int searchedUserId) {
         try (Connection con = dataSource.getConnection()) {
             String query = "SELECT id, user_id, payed  FROM cart WHERE user_id = ?";
             PreparedStatement st = con.prepareStatement(query);
@@ -57,11 +44,10 @@ public class CartDaoJdbc implements CartDao {
             }
             for (Cart cart : carts) {
                 if (!cart.isPayed()) {
-                    this.cart = cart;
+                    return cart;
                 }
             }
-            this.cart = createCart(searchedUserId);
-
+            return createCart(searchedUserId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -93,22 +79,6 @@ public class CartDaoJdbc implements CartDao {
 
     @Override
     public List<Product> reviewCart() {
-        try (Connection con = dataSource.getConnection()) {
-            String query = "SELECT product_id FROM product_in_cart WHERE cart_id = ?";
-            PreparedStatement st = con.prepareStatement(query);
-            st.setInt(1, cart.getId());
-
-            ResultSet rs = st.executeQuery();
-            List<Product> products = new ArrayList<>();
-            while (rs.next()) {
-                ProductDaoJdbc productDaoJdbc = new ProductDaoJdbc(dataSource);
-                Product product = productDaoJdbc.find(rs.getInt(1));
-                products.add(product);
-            }
-            return products;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return null;
     }
 }
