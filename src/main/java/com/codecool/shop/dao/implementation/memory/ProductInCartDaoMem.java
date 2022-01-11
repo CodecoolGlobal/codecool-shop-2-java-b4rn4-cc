@@ -10,6 +10,9 @@ public class ProductInCartDaoMem implements ProductInCartDao {
 
     private static ProductInCartDaoMem instance = null;
 
+    private ProductInCartDaoMem() {
+    }
+
     public static ProductInCartDaoMem getInstance() {
         if (instance == null) {
             instance = new ProductInCartDaoMem();
@@ -34,6 +37,6 @@ public class ProductInCartDaoMem implements ProductInCartDao {
 
     @Override
     public List<Product> reviewCart(int cartID) {
-        return null;
+        return CartDaoMem.data.getCart();
     }
 }
