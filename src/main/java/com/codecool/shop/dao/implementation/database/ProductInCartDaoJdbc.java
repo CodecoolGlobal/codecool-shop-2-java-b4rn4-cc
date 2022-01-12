@@ -34,7 +34,11 @@ public class ProductInCartDaoJdbc implements ProductInCartDao {
     @Override
     public void deleteInCartByProductID(int cartId, int productId) {
         try (Connection con = dataSource.getConnection()) {
-            String query = "DELETE FROM product_in_cart WHERE cart_id = ? AND product_id = ?";
+            String query = "DELETE FROM product_in_cart\n" +
+                    "WHERE id = (SELECT id\n" +
+                    "            FROM product_in_cart\n" +
+                    "            WHERE cart_id = ? AND product_id = ?\n" +
+                    "            LIMIT 1)";
             PreparedStatement st = con.prepareStatement(query);
             st.setInt(1, cartId);
             st.setInt(2, productId);
