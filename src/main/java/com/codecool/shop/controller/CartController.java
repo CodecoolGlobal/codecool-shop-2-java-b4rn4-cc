@@ -51,7 +51,7 @@ public class CartController extends HttpServlet{
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("products", cartService.getProductInCart());
         context.setVariable("price", cartService.sumPrice());
-        engine.process("product/cart-test.html", context, resp.getWriter());
+        engine.process("product/cart.html", context, resp.getWriter());
     }
 
 
