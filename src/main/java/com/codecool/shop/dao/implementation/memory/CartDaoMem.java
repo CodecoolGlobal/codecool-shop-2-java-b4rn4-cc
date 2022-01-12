@@ -28,17 +28,6 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public void addToCart(Product product) {
-
-    }
-
-
-    @Override
-    public void deleteFromCart(int index) {
-
-    }
-
-    @Override
     public Cart cartWithSingInUser(int userId) {
         return data;
     }
@@ -50,5 +39,10 @@ public class CartDaoMem implements CartDao {
 
     public Cart getCart() {
         return data;
+    }
+
+    @Override
+    public void payOrder(Cart cart) {
+
     }
 }

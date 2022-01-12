@@ -9,9 +9,8 @@ import java.util.List;
 public interface CartDao {
 
     void add(Cart cart);
-    void addToCart(Product product);
-    void deleteFromCart(int index);
     Cart cartWithSingInUser(int userId);
     Cart createCart(int userId);
+    void payOrder(Cart cart);
 
 }
