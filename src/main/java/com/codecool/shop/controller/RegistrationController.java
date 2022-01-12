@@ -1,13 +1,9 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.CustomerDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.DaoRepository;
 import com.codecool.shop.model.Customer;
 import com.codecool.shop.service.CustomerService;
-import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
