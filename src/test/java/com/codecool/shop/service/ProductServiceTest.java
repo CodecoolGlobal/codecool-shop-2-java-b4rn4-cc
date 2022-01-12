@@ -20,13 +20,17 @@ import static org.mockito.Mockito.when;
 public class ProductServiceTest {
 
     private Product testProduct;
+    private ProductCategory testCategory;
     ProductDao mockProductDao = mock(ProductDao.class);
     ProductCategoryDao mockCategoryDao = mock(ProductCategoryDao.class);
     SupplierDao mockSupplierDao = mock(SupplierDao.class);
+    private Supplier testSupplier;
 
     @BeforeEach
     void setTestProduct() {
-        testProduct = new Product("TestName", BigDecimal.TEN, "HUF", "Great device", new ProductCategory("Tablet", "hardware", ""), new Supplier("Samsong", ""));
+        testCategory = new ProductCategory("Tablet", "hardware", "");
+        testSupplier = new Supplier("Samsong", "");
+        testProduct = new Product("TestName", BigDecimal.TEN, "HUF", "Great device", testCategory, testSupplier);
     }
 
     @ParameterizedTest
@@ -39,5 +43,16 @@ public class ProductServiceTest {
         ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
 
         assertEquals(testProduct, testService.getProductDaoById(id));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 6, 11, 78})
+    public void getProductCategory_existingId_returnsCategory(int id) {
+        testCategory.setId(id);
+
+        when(mockCategoryDao.find(testCategory.getId())).thenReturn(testCategory);
+        ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+
+        assertEquals(testCategory, testService.getProductCategory(id));
     }
 }
