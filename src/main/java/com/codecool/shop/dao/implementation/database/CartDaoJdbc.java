@@ -77,8 +77,4 @@ public class CartDaoJdbc implements CartDao {
 
     }
 
-    @Override
-    public List<Product> reviewCart() {
-        return null;
-    }
 }
