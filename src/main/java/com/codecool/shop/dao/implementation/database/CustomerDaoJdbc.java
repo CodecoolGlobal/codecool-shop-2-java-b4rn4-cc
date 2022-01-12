@@ -17,7 +17,7 @@ public class CustomerDaoJdbc implements CustomerDao {
     @Override
     public void add(Customer customer) {
         try(Connection con = dataSource.getConnection()){
-            String query = "INSERT INTO user (name, email, password, address, city, state, zip_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO customer (name, email, password, address, city, state, zip_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement st = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, customer.getName());
             st.setString(2, customer.getEmail());
@@ -26,10 +26,10 @@ public class CustomerDaoJdbc implements CustomerDao {
             st.setString(5, customer.getCity());
             st.setString(6, customer.getState());
             st.setString(7, customer.getZipCode());
+
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
             rs.next();
-            customer.setId(rs.getInt(1));
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -44,7 +44,7 @@ public class CustomerDaoJdbc implements CustomerDao {
     @Override
     public Customer findByEmail(String gotEmail) {
         try (Connection con = dataSource.getConnection()) {
-            String query = "SELECT id, name, email, password, address, city, state, zip_code FROM user WHERE email = ?";
+            String query = "SELECT id, name, email, password, address, city, state, zip_code FROM customer WHERE email = ?";
             PreparedStatement st = con.prepareStatement(query);
             st.setString(1, gotEmail);
             ResultSet rs = st.executeQuery();
