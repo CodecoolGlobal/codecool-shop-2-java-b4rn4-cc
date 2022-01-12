@@ -1,6 +1,6 @@
 package com.codecool.shop.service;
 
-import com.codecool.shop.dao.implementation.CustomerDaoJdbc;
+import com.codecool.shop.dao.implementation.database.CustomerDaoJdbc;
 import com.codecool.shop.model.Customer;
 
 public class CustomerService {
