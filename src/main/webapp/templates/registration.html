@@ -12,14 +12,15 @@
 <div class="row">
   <div class="col-75">
     <div class="container">
-
+      <form>
         <div class="row">
           <div class="col-50">
             <h3>Billing Address</h3>
+
             <label for="fname"><i class="fa fa-user"></i> Full Name</label>
             <input type="text" id="fname" name="name" placeholder="John M. Doe" required>
             <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com" required>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required>
             <label for="pw"><i class="fa fa-key"></i> Password</label>
             <input type="password" id="pw" name="pw" placeholder="Jdoe123" required>
             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
@@ -37,15 +38,17 @@
                 <input type="text" id="zip" name="zip" placeholder="10001">
               </div>
             </div>
+
           </div>
 
 
 
         </div>
         <label>
-          <input type="checkbox" checked="checked" name="terms-and-cond" required> Accept the User terms and conditions
+          <input type="checkbox" name="terms-and-cond" required> Accept the User terms and conditions
         </label>
         <button class="button" type="submit" formaction="/registration" formmethod="post">Registration</button>
+      </form>
     </div>
   </div>
 </div>
