@@ -72,7 +72,7 @@ public class DaoRepository {
         }
     }
 
-    public CustomerDao getCustomerDaoJdbc() {
+    public CustomerDao getCustomerDao() {
         if (conProp.getProperty("dao").equals("memory")) {
             return null;
         } else if (conProp.getProperty("dao").equals("jdbc")) {

@@ -44,7 +44,7 @@ public class RegistrationController extends HttpServlet {
         if (request.getParameter("zip") != null) {
             customer.setZipCode(request.getParameter("zip"));
         }
-        CustomerDao customerDao = daoRepository.getCustomerDaoJdbc();
+        CustomerDao customerDao = daoRepository.getCustomerDao();
         CustomerService customerService = new CustomerService(customerDao);
         if (customerService.registration(customer)) {
             resp.sendRedirect(request.getContextPath() + "/");
