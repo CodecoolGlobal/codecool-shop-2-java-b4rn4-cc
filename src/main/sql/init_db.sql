@@ -52,7 +52,7 @@ CREATE TABLE public.user
     address  varchar,
     city     varchar,
     state    varchar,
-    zip_code integer
+    zip_code varchar
 );
 
 CREATE TABLE public.order_history
@@ -160,3 +160,6 @@ VALUES ('ChuWi HeroBook Por+', 81232, 'HUF',
        ('Samsong FULL HD Televison 45`', 35624, 'HUF',
         'Keskeny és elegáns kialakítás, amely a legtisztább képet tárja eléd. Minden elemében, szögében minimalista kialakítású, keret nélküli, amely új mércét állít fel. Magával ragadó látvány tárul eléd.',
         7, 3);
+
+INSERT INTO public.user (name, email, password)
+VALUES ('admin', 'admin@test.com', '11111')

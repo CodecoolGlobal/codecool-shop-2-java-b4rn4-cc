@@ -28,27 +28,21 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public void addToCart(Product product) {
-        data.add(product);
+    public Cart cartWithSingInUser(int userId) {
+        return data;
     }
 
     @Override
-    public List<Product> reviewCart() {
-        return data.getCart();
+    public Cart createCart(int userId) {
+        return null;
+    }
+
+    public Cart getCart() {
+        return data;
     }
 
     @Override
-    public void deleteFromCart(int index) {
-        data.delete(index);
+    public void payOrder(Cart cart) {
+        data.pay();
     }
-
-    //    @Override
-//    public void addToCart(String productName, Product product) {
-//        data.add(productName, product);
-//    }
-//
-//    @Override
-//    public HashMap<String, Product> reviewCart() {
-//        return data.getCart();
-//    }
 }
