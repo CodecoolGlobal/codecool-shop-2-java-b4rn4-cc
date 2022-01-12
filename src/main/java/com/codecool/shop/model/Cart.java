@@ -13,7 +13,8 @@ public class Cart {
 
     private List<Product> cart;
 
-    public Cart() {
+    public Cart(int id) {
+        this.id = id;
         this.cart = new ArrayList<>();
     }
 

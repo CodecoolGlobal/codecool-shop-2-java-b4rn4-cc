@@ -32,11 +32,7 @@ public class CartService {
 
     public void addToCart(Customer customer, Product product) {
         Cart cart = cartDao.cartWithSingInUser(1);
-        int cardId = 0;
-        if (cart != null) {
-            cardId = cart.getId();
-        }
-        productInCartDao.add(cardId, product);
+        productInCartDao.add(cart.getId(), product);
         cartDao.addToCart(product);
     }
 
