@@ -51,7 +51,7 @@ public class CartController extends HttpServlet{
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("products", cartService.getProductInCart());
         context.setVariable("price", cartService.sumPrice());
-        engine.process("product/cart-test.html", context, resp.getWriter());
+        engine.process("product/cart.html", context, resp.getWriter());
     }
 
 
@@ -61,7 +61,8 @@ public class CartController extends HttpServlet{
         CartDao cartDataStore = daoRepository.getCartDao();
         ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
+        Customer customer = new Customer("","","","","","");
         String productID = req.getParameter("id");
-        cartService.deleteFromCart(Integer.parseInt(productID));
+        cartService.deleteFromCart(customer, Integer.parseInt(productID));
     }
 }

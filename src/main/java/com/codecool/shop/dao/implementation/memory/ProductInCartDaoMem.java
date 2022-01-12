@@ -28,7 +28,7 @@ public class ProductInCartDaoMem implements ProductInCartDao {
 
     @Override
     public void deleteInCartByProductID(int cartId, int productId) {
-
+        cartDaoMem.getCart().delete(productId);
     }
 
     @Override

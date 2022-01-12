@@ -25,9 +25,12 @@ function deleteButton(){
     }
 
     async function deleteData(url = '') {
-        await fetch(url, {
+        const response = await fetch(url, {
             method: 'DELETE'
         });
+        if (!response.ok){
+
+        }
     }
 }
 
