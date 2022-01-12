@@ -30,6 +30,6 @@ public class CheckoutController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("products", cartService.getProductInCart());
         context.setVariable("price", cartService.sumPrice());
-        engine.process("product/checkout.html", context, resp.getWriter());
+        engine.process("checkout.html", context, resp.getWriter());
     }
 }
