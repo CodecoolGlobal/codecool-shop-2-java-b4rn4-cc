@@ -3,6 +3,7 @@ package com.codecool.shop.dao.implementation.database;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.service.ErrorLogging;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -41,6 +42,7 @@ public class SupplierDaoJdbc implements SupplierDao {
             result.setId(id);
             return result;
         } catch (SQLException e) {
+            ErrorLogging.log(e);
             throw new RuntimeException(e);
         }
     }
@@ -69,6 +71,7 @@ public class SupplierDaoJdbc implements SupplierDao {
             }
             return suppliers;
         } catch (SQLException e) {
+            ErrorLogging.log(e);
             throw new RuntimeException(e);
         }
     }
@@ -97,6 +100,7 @@ public class SupplierDaoJdbc implements SupplierDao {
             }
             return result;
         } catch (SQLException e) {
+            ErrorLogging.log(e);
             throw new RuntimeException(e);
         }
     }
