@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS public.supplier CASCADE;
 DROP TABLE IF EXISTS public.product CASCADE;
 DROP TABLE IF EXISTS public.cart CASCADE;
 DROP TABLE IF EXISTS public.product_in_cart CASCADE;
-DROP TABLE IF EXISTS public.user CASCADE;
+DROP TABLE IF EXISTS public.customer CASCADE;
 DROP TABLE IF EXISTS public.order_history CASCADE;
 
 CREATE TABLE public.category
@@ -43,7 +43,7 @@ CREATE TABLE public.product_in_cart
     product_id integer NOT NULL
 );
 
-CREATE TABLE public.user
+CREATE TABLE public.customer
 (
     id       serial  NOT NULL PRIMARY KEY,
     name     varchar NOT NULL,
@@ -73,10 +73,10 @@ ALTER TABLE ONLY public.product_in_cart
     ADD CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES public.product (id);
 
 ALTER TABLE ONLY public.cart
-    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.user (id);
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.customer (id);
 
 ALTER TABLE ONLY order_history
-    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.user (id);
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.customer (id);
 
 INSERT INTO supplier (name)
 VALUES ('Leioa'),
@@ -161,5 +161,5 @@ VALUES ('ChuWi HeroBook Por+', 81232, 'HUF',
         'Keskeny és elegáns kialakítás, amely a legtisztább képet tárja eléd. Minden elemében, szögében minimalista kialakítású, keret nélküli, amely új mércét állít fel. Magával ragadó látvány tárul eléd.',
         7, 3);
 
-INSERT INTO public.user (name, email, password)
+INSERT INTO public.customer (name, email, password)
 VALUES ('admin', 'admin@test.com', '11111')
