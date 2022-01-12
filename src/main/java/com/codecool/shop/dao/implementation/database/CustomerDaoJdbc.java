@@ -58,9 +58,12 @@ public class CustomerDaoJdbc implements CustomerDao {
             String state = rs.getString(7);
             String zipCode = rs.getString(8);
 
-
-            Customer customer = new Customer(id, name, email, password, address, city, state, zipCode);
-
+            Customer customer = new Customer(name, email, password);
+            customer.setId(id);
+            customer.setAddress(address);
+            customer.setCity(city);
+            customer.setState(state);
+            customer.setZipCode(zipCode);
             return customer;
         } catch (SQLException e) {
             throw new RuntimeException(e);
