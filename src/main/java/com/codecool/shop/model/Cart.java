@@ -52,9 +52,7 @@ public class Cart {
     }
 
     public void pay(){
-        if (!payed){
-            payed = true;
-        }
+        cart.clear();
     }
 
     public void setId(int id) {

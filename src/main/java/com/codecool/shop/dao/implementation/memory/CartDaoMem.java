@@ -43,6 +43,6 @@ public class CartDaoMem implements CartDao {
 
     @Override
     public void payOrder(Cart cart) {
-
+        data.pay();
     }
 }
