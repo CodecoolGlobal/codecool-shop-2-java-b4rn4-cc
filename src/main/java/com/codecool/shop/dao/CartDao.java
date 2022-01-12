@@ -11,7 +11,6 @@ public interface CartDao {
     void add(Cart cart);
     void addToCart(Product product);
     void deleteFromCart(int index);
-    List<Product> reviewCart();
     Cart cartWithSingInUser(int userId);
     Cart createCart(int userId);
 
