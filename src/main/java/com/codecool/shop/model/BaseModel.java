@@ -1,6 +1,8 @@
 package com.codecool.shop.model;
 
 
+import com.codecool.shop.service.ErrorLogging;
+
 import java.lang.reflect.Field;
 
 public class BaseModel {
@@ -55,7 +57,7 @@ public class BaseModel {
                     sb.append(field.getName() + ":" + value + ",");
                 }
             } catch (IllegalAccessException e) {
-
+                ErrorLogging.log(e);
             }
         }
         return sb.toString();
