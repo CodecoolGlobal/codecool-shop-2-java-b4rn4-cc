@@ -32,8 +32,15 @@ public class Cart {
         return cart;
     }
 
-    public void delete(int index){
-        cart.remove(index);
+    public void delete(int productId){
+        Product deletedProduct = null;
+        for (Product product: cart){
+            if (product.getId() == productId){
+                deletedProduct = product;
+                break;
+            }
+        }
+        cart.remove(deletedProduct);
     }
 
     public int getUserId() {
