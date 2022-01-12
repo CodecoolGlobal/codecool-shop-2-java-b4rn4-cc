@@ -3,6 +3,7 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.config.DatabaseConfig;
 import com.codecool.shop.config.Initializer;
 import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.implementation.database.CustomerDaoJdbc;
 import com.codecool.shop.dao.implementation.database.DatabaseManager;
 import com.codecool.shop.dao.implementation.memory.*;
 
@@ -66,6 +67,16 @@ public class DaoRepository {
             return ProductInCartDaoMem.getInstance();
         } else if (conProp.getProperty("dao").equals("jdbc")) {
             return databaseManager.getProductInCartDao();
+        } else {
+            return null;
+        }
+    }
+
+    public CustomerDao getCustomerDaoJdbc() {
+        if (conProp.getProperty("dao").equals("memory")) {
+            return null;
+        } else if (conProp.getProperty("dao").equals("jdbc")) {
+            return databaseManager.getCustomerDao();
         } else {
             return null;
         }
