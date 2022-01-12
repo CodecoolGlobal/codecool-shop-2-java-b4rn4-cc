@@ -16,7 +16,7 @@ public class CustomerDaoJdbc implements CustomerDao {
 
     @Override
     public void add(Customer customer) {
-        try(Connection con = dataSource.getConnection()){
+        try (Connection con = dataSource.getConnection()) {
             String query = "INSERT INTO customer (name, email, password, address, city, state, zip_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement st = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, customer.getName());
@@ -30,7 +30,7 @@ public class CustomerDaoJdbc implements CustomerDao {
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
             rs.next();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -49,6 +49,7 @@ public class CustomerDaoJdbc implements CustomerDao {
             st.setString(1, gotEmail);
             ResultSet rs = st.executeQuery();
 
+            rs.next();
             int id = rs.getInt(1);
             String name = rs.getString(2);
             String email = rs.getString(3);

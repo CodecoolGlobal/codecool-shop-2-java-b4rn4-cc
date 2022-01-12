@@ -14,7 +14,7 @@ public class DatabaseConfig {
 
     public static Properties setupApplication() {
         String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
-        String conConfigPath = rootPath + "connetion.properties";
+        String conConfigPath = rootPath + "connection.properties";
 
         conProps = new Properties();
         try {

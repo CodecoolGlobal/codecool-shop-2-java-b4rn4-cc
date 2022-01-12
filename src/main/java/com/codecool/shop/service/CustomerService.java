@@ -12,8 +12,8 @@ public class CustomerService {
 
     public boolean registration(Customer customer) {
 //        if (customerDao.findByEmail(customer.getEmail()) == null) {
-            customerDao.add(customer);
-            return true;
+        customerDao.add(customer);
+        return true;
 //        }else{
 //            return false;
 //        }
@@ -21,5 +21,13 @@ public class CustomerService {
 
     public Customer getCostumerByEmail(String email) {
         return customerDao.findByEmail(email);
+    }
+
+    public boolean loginSuccess(Customer customer) {
+        if (getCostumerByEmail(customer.getEmail()).getPassword().equals(customer.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
