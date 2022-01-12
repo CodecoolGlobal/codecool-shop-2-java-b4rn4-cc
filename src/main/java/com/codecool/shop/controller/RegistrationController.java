@@ -22,7 +22,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/registration"})
 
-public class RegistrationController extends HttpServlet{
+public class RegistrationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -36,20 +36,24 @@ public class RegistrationController extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         DaoRepository daoRepository = DaoRepository.getInstance();
         Customer customer = new Customer(request.getParameter("name"), request.getParameter("email"), request.getParameter("pw"));
-        if(request.getParameter("address") != null){
+        if (request.getParameter("address") != null) {
             customer.setAddress(request.getParameter("address"));
         }
-        if(request.getParameter("city") != null){
+        if (request.getParameter("city") != null) {
             customer.setCity(request.getParameter("city"));
         }
-        if(request.getParameter("state") != null){
+        if (request.getParameter("state") != null) {
             customer.setState(request.getParameter("state"));
         }
-        if(request.getParameter("zip")!= null){
+        if (request.getParameter("zip") != null) {
             customer.setZipCode(request.getParameter("zip"));
         }
         CustomerDao customerDao = daoRepository.getCustomerDaoJdbc();
         CustomerService customerService = new CustomerService(customerDao);
-        customerService.registration(customer);
+        if (customerService.registration(customer)) {
+            resp.sendRedirect(request.getContextPath() + "/");
+        }else{
+            System.out.println("email is not available");
+        }
     }
 }
