@@ -33,12 +33,16 @@ public class CartService {
     public void addToCart(Customer customer, Product product) {
         Cart cart = cartDao.cartWithSingInUser(1);
         productInCartDao.add(cart.getId(), product);
-        cartDao.addToCart(product);
     }
 
     public void deleteFromCart(Customer customer, int productId) {
         Cart cart = cartDao.cartWithSingInUser(1);
         productInCartDao.deleteInCartByProductID(cart.getId(), productId);
+    }
+
+    public void payOrder(Customer customer){
+        Cart cart = cartDao.cartWithSingInUser(1);
+        cartDao.payOrder(cart);
     }
 
     public String sumPrice() {

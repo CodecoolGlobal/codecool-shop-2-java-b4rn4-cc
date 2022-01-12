@@ -21,10 +21,6 @@ public class CartDaoJdbc implements CartDao {
 
     }
 
-    @Override
-    public void addToCart(Product product) {
-
-    }
 
     @Override
     public Cart cartWithSingInUser(int searchedUserId) {
@@ -73,8 +69,15 @@ public class CartDaoJdbc implements CartDao {
     }
 
     @Override
-    public void deleteFromCart(int index) {
+    public void payOrder(Cart cart) {
+        try (Connection con = dataSource.getConnection()) {
+            String query = "UPDATE cart  SET payed = true WHERE id = ?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setInt(1, cart.getId());
 
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 }

@@ -29,8 +29,9 @@ public class PaymentController extends HttpServlet {
         DaoRepository daoRepository = DaoRepository.getInstance();
         CartDao cartDataStore = daoRepository.getCartDao();
         ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
+//        Customer customer = new Customer("", "", "", "", "", "");
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
-
+        cartService.payOrder(customer);
         EmailSender sender = new EmailSender();
         String emailAddress = customer.getEmail();
         String emailContent = "<div>Dear " + customer.getName() + "</div>" +
