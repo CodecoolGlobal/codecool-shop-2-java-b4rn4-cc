@@ -16,6 +16,7 @@ public class DatabaseManager {
     ProductCategoryDao productCategoryDao;
     CartDao cartDao;
     ProductInCartDao productInCartDao;
+    CustomerDao customerDao;
 
     public DatabaseManager(String dbName, String dbUserName, String dbPassword) {
         this.dbName = dbName;
@@ -31,6 +32,7 @@ public class DatabaseManager {
         productCategoryDao = new ProductCategoryDaoJdbc(dataSource);
         cartDao = new CartDaoJdbc(dataSource);
         productInCartDao = new ProductInCartDaoJdbc(dataSource);
+        customerDao = new CustomerDaoJdbc(dataSource);
     }
 
     private DataSource connect() throws SQLException {
@@ -65,5 +67,9 @@ public class DatabaseManager {
 
     public ProductInCartDao getProductInCartDao() {
         return productInCartDao;
+    }
+
+    public CustomerDao getCustomerDao() {
+        return customerDao;
     }
 }
