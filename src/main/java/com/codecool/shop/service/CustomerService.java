@@ -1,24 +1,24 @@
 package com.codecool.shop.service;
 
-import com.codecool.shop.dao.implementation.database.CustomerDaoJdbc;
+import com.codecool.shop.dao.CustomerDao;
 import com.codecool.shop.model.Customer;
 
 public class CustomerService {
-    private CustomerDaoJdbc customerDaoJdbc;
+    private CustomerDao customerDao;
 
-    public CustomerService(CustomerDaoJdbc customerDaoJdbc) {
-        this.customerDaoJdbc = customerDaoJdbc;
+    public CustomerService(CustomerDao customerDao) {
+        this.customerDao = customerDao;
     }
 
     public void registration(Customer customer) {
-        if (customerDaoJdbc.findByEmail(customer.getEmail()) == null) {
-            customerDaoJdbc.add(customer);
+        if (customerDao.findByEmail(customer.getEmail()) == null) {
+            customerDao.add(customer);
         }else{
             throw new IllegalArgumentException("Email is not available!");
         }
     }
 
     public Customer getCostumerByEmail(String email) {
-        return customerDaoJdbc.findByEmail(email);
+        return customerDao.findByEmail(email);
     }
 }
