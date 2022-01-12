@@ -61,7 +61,8 @@ public class CartController extends HttpServlet{
         CartDao cartDataStore = daoRepository.getCartDao();
         ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
+        Customer customer = new Customer("","","","","","");
         String productID = req.getParameter("id");
-        cartService.deleteFromCart(Integer.parseInt(productID));
+        cartService.deleteFromCart(customer, Integer.parseInt(productID));
     }
 }

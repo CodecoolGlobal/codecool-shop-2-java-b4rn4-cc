@@ -36,8 +36,9 @@ public class CartService {
         cartDao.addToCart(product);
     }
 
-    public void deleteFromCart(int index) {
-        cartDao.deleteFromCart(index);
+    public void deleteFromCart(Customer customer, int productId) {
+        Cart cart = cartDao.cartWithSingInUser(1);
+        productInCartDao.deleteInCartByProductID(cart.getId(), productId);
     }
 
     public String sumPrice() {
