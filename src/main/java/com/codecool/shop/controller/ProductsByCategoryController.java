@@ -17,12 +17,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/tablet", "/console", "/smart watch", "/cell phone", "/computer", "/camera", "/television"})
 public class ProductsByCategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
         DaoRepository daoRepository = DaoRepository.getInstance();
 
         response.setContentType("text/html");
@@ -31,7 +34,7 @@ public class ProductsByCategoryController extends HttpServlet {
         ProductDao productDataStore = daoRepository.getProductDao();
         ProductCategoryDao productCategoryDataStore = daoRepository.getProductCategoryDao();
         SupplierDao supplierDataStore = daoRepository.getSupplierDao();
-        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
+        ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStore);
 
         String requestURI = request.getRequestURI();
         int categoryId = getCategoryId(requestURI);
@@ -44,7 +47,7 @@ public class ProductsByCategoryController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
 
-        setupContext(context, supplierId, productService, categoryId);
+        setupContext(context, supplierId, productService, categoryId, session);
 
         engine.process("product/products.html", context, response.getWriter());
     }
@@ -69,7 +72,7 @@ public class ProductsByCategoryController extends HttpServlet {
         return 0;
     }
 
-    private void setupContext(WebContext context, int supplierId, ProductService productService, int categoryId) {
+    private void setupContext(WebContext context, int supplierId, ProductService productService, int categoryId, HttpSession session) {
         context.setVariable("categories", productService.getProductCategories());
         context.setVariable("suppliers", productService.getProductSuppliers(categoryId));
         context.setVariable("category", productService.getProductCategory(categoryId));
@@ -77,6 +80,10 @@ public class ProductsByCategoryController extends HttpServlet {
             context.setVariable("products", productService.getProductsForCategory(categoryId));
         } else {
             context.setVariable("products", productService.getProductsForSupplierInCategory(categoryId, supplierId));
+        }
+        if (session.getAttribute("user") != null) {
+            String user = session.getAttribute("user").toString();
+            context.setVariable("user", user);
         }
     }
 }
