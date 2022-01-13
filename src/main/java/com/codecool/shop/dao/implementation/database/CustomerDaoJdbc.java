@@ -49,7 +49,9 @@ public class CustomerDaoJdbc implements CustomerDao {
             st.setString(1, gotEmail);
             ResultSet rs = st.executeQuery();
 
-            rs.next();
+            if (!rs.next()) {
+                return null;
+            }
             int id = rs.getInt(1);
             String name = rs.getString(2);
             String email = rs.getString(3);
