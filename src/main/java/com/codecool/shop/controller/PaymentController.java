@@ -52,7 +52,8 @@ public class PaymentController extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         DaoRepository daoRepository = DaoRepository.getInstance();
         CartDao cartDataStore = daoRepository.getCartDao();
-        ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();        CartService cartService = new CartService(cartDataStore, productInCartDataStore);
+        ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
+        CartService cartService = new CartService(cartDataStore, productInCartDataStore);
         customer = new Customer(request.getParameter("name"), request.getParameter("email"),
                 request.getParameter("address"), request.getParameter("city"), request.getParameter("state"),
                 request.getParameter("zip"));
