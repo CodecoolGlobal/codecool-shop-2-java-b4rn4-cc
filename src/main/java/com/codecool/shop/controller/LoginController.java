@@ -10,10 +10,7 @@ import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/login"})
@@ -30,12 +27,13 @@ public class LoginController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DaoRepository daoRepository = DaoRepository.getInstance();
+        String email = req.getParameter("email");
         Customer customer = new Customer(req.getParameter("email"), req.getParameter("pw"));
         CustomerDao customerDao = daoRepository.getCustomerDao();
         CustomerService customerService = new CustomerService(customerDao);
         if (customerService.loginSuccess(customer)) {
-            Cookie loginCookie = new Cookie("user", req.getParameter("email"));
-            resp.addCookie(loginCookie);
+            HttpSession session = req.getSession();
+            session.setAttribute("user", email);
             resp.sendRedirect(req.getContextPath() + "/");
         }else{
             resp.sendRedirect(req.getContextPath() + "/login");
