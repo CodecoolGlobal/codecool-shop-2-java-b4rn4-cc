@@ -12,8 +12,10 @@ public class DatabaseConfig {
     private static Properties conProps;
 
     public static void setupApplication() {
+        String configFileName = "connection.properties";
+
         String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
-        String conConfigPath = rootPath + "connection.properties";
+        String conConfigPath = rootPath + configFileName;
 
         conProps = new Properties();
         try {
