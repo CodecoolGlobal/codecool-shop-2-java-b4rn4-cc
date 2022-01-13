@@ -80,11 +80,12 @@ public class ProductServiceTest {
     }
 
 
-    @Test
-    public void getProductById_nonExistingId_returnsNull() {
-        int nonExistingId = -1;
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 2, 3, 5, -7})
+    public void getProductById_nonExistingId_returnsNull(int nonExistingId) {
 
         ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+//        when(mockProductDao.find(nonExistingId)).thenReturn(null);
 
         assertNull(testService.getProductDaoById(nonExistingId));
     }
