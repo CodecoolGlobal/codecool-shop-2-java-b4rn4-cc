@@ -89,4 +89,23 @@ public class ProductServiceTest {
 
         assertNull(testService.getProductDaoById(nonExistingId));
     }
+
+    @Test
+    public void getProductsForCategory_nonExistingCategoryId_returnsEmptyList() {
+        int nonExistingId = 1;
+        List<Product> expected = new ArrayList<>();
+
+        ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+
+        assertEquals(expected, testService.getProductsForCategory(nonExistingId));
+    }
+
+    @Test
+    public void getProductsForCategory_invalidId_returnsNull() {
+        int invalidId = -1;
+
+        ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+
+        assertNull(testService.getProductsForCategory(invalidId));
+    }
 }
