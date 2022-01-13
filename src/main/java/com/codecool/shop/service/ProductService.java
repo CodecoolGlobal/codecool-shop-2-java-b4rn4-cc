@@ -21,7 +21,8 @@ public class ProductService{
     }
 
     public Product getProductDaoById(int productId){
-        return productDao.find(productId);
+        if (productId > 0) return productDao.find(productId);
+        else return null;
     }
 
     public ProductCategory getProductCategory(int categoryId){
@@ -29,8 +30,10 @@ public class ProductService{
     }
 
     public List<Product> getProductsForCategory(int categoryId){
-        var category = productCategoryDao.find(categoryId);
-        return productDao.getBy(category);
+        if (categoryId > 0) {
+            var category = productCategoryDao.find(categoryId);
+            return productDao.getBy(category);
+        } else return null;
     }
 
     public List<ProductCategory> getProductCategories() {
