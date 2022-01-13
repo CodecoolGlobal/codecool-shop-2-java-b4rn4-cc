@@ -20,8 +20,8 @@ public class CartService {
     }
 
 
-    public List<Product> getProductInCart() {
-        Cart cart = cartDao.cartWithSingInUser(1);
+    public List<Product> getProductInCart(Customer customer) {
+        Cart cart = cartDao.cartWithSingInUser(customer.getId());
         int cardId = 0;
         if (cart != null) {
             cardId = cart.getId();
@@ -31,24 +31,24 @@ public class CartService {
 
 
     public void addToCart(Customer customer, Product product) {
-        Cart cart = cartDao.cartWithSingInUser(1);
+        Cart cart = cartDao.cartWithSingInUser(customer.getId());
         productInCartDao.add(cart.getId(), product);
     }
 
     public void deleteFromCart(Customer customer, int productId) {
-        Cart cart = cartDao.cartWithSingInUser(1);
+        Cart cart = cartDao.cartWithSingInUser(customer.getId());
         productInCartDao.deleteInCartByProductID(cart.getId(), productId);
     }
 
     public void payOrder(Customer customer){
-        Cart cart = cartDao.cartWithSingInUser(1);
+        Cart cart = cartDao.cartWithSingInUser(customer.getId());
         cartDao.payOrder(cart);
     }
 
-    public String sumPrice() {
+    public String sumPrice(Customer customer) {
         int sum = 0;
         String slicedPrice = "";
-        for (Product product : getProductInCart()) {
+        for (Product product : getProductInCart(customer)) {
             String strPrice = product.getPrice();
             slicedPrice = strPrice.substring(0, strPrice.length() - 4);
             sum += Integer.parseInt(slicedPrice);

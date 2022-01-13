@@ -6,6 +6,7 @@ import com.codecool.shop.dao.implementation.database.CartDaoJdbc;
 import com.codecool.shop.dao.implementation.memory.*;
 import com.codecool.shop.model.Customer;
 import com.codecool.shop.service.CartService;
+import com.codecool.shop.service.CustomerService;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -13,13 +14,14 @@ import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/cart"})
-public class CartController extends HttpServlet{
+public class CartController extends HttpServlet {
 
 
     @Override
@@ -30,12 +32,23 @@ public class CartController extends HttpServlet{
         ProductCategoryDao productCategoryDataStore = daoRepository.getProductCategoryDao();
         SupplierDao supplierDataStore = daoRepository.getSupplierDao();
         CartDao cartDataStore = daoRepository.getCartDao();
+        CustomerDao customerDao = daoRepository.getCustomerDao();
         ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
-        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
+        ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStore);
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
-        Customer customer = new Customer("","","","","","");
-        String productID = request.getParameter("id");
-        cartService.addToCart(customer, productService.getProductDaoById(Integer.parseInt(productID)));
+        CustomerService customerService = new CustomerService(customerDao);
+        Cookie[] cookies = request.getCookies();
+        String userEmail = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user")) {
+                    userEmail = cookie.getValue();
+                }
+            }
+            Customer customer = customerService.getCostumerByEmail(userEmail);
+            String productID = request.getParameter("id");
+            cartService.addToCart(customer, productService.getProductDaoById(Integer.parseInt(productID)));
+        }
     }
 
 
@@ -46,11 +59,23 @@ public class CartController extends HttpServlet{
         resp.setCharacterEncoding("utf-8");
         CartDao cartDataStore = daoRepository.getCartDao();
         ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
+        CustomerDao customerDataStore = daoRepository.getCustomerDao();
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
+        CustomerService customerService = new CustomerService(customerDataStore);
+        Cookie[] cookies = req.getCookies();
+        String userEmail = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user")) {
+                    userEmail = cookie.getValue();
+                }
+            }
+        }
+        Customer customer = customerService.getCostumerByEmail(userEmail);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("products", cartService.getProductInCart());
-        context.setVariable("price", cartService.sumPrice());
+        context.setVariable("products", cartService.getProductInCart(customer));
+        context.setVariable("price", cartService.sumPrice(customer));
         engine.process("product/cart.html", context, resp.getWriter());
     }
 
@@ -60,8 +85,19 @@ public class CartController extends HttpServlet{
         DaoRepository daoRepository = DaoRepository.getInstance();
         CartDao cartDataStore = daoRepository.getCartDao();
         ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
+        CustomerDao customerDataStore = daoRepository.getCustomerDao();
+        CustomerService customerService = new CustomerService(customerDataStore);
+        Cookie[] cookies = req.getCookies();
+        String userEmail = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user")) {
+                    userEmail = cookie.getValue();
+                }
+            }
+        }
+        Customer customer = customerService.getCostumerByEmail(userEmail);
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
-        Customer customer = new Customer("","","","","","");
         String productID = req.getParameter("id");
         cartService.deleteFromCart(customer, Integer.parseInt(productID));
     }

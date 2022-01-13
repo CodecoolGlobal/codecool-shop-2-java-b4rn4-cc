@@ -2,6 +2,7 @@ package com.codecool.shop.service;
 
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductInCartDao;
+import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -24,16 +25,17 @@ public class CartServiceTest {
     @Test
     public void sumPrice_nonEmptyCart_returnActualPrice() {
         CartService testService = new CartService(mockCartDao, mockProductInCartDao);
+        Customer testCustomer = mock(Customer.class);
         List<Product> cartContents = new ArrayList<>();
         Product product1 = new Product("Watch", BigDecimal.valueOf(1000L), "HUF", "", new ProductCategory("Smart Watch", "Hardware", ""), new Supplier("Samsong", ""));
         Product product2 = new Product("Watch", BigDecimal.valueOf(2000L), "HUF", "", new ProductCategory("Smart Watch", "Hardware", ""), new Supplier("Samsong", ""));
         cartContents.add(product1);
         cartContents.add(product2);
-
+        when(testCustomer.getId()).thenReturn(1);
         // TODO: 2022. 01. 13. ask mentor why this not working
 //        when(mockProductInCartDao.reviewCart(1)).thenReturn(cartContents);
-        when(testService.getProductInCart()).thenReturn(cartContents);
+        when(testService.getProductInCart(testCustomer)).thenReturn(cartContents);
 
-        assertEquals("3000 HUF", testService.sumPrice());
+        assertEquals("3000 HUF", testService.sumPrice(testCustomer));
     }
 }
