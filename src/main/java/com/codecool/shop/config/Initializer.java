@@ -28,8 +28,8 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
-        Properties conProps = DatabaseConfig.setupApplication();
+        DatabaseConfig.setupApplication();
+        Properties conProps = DatabaseConfig.getConProps();
 
         dao = conProps.getProperty("dao");
         dbUserName = conProps.getProperty("user");
