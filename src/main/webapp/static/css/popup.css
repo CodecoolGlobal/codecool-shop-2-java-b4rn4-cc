@@ -9,7 +9,7 @@
     position: absolute;
     z-index: 1;
     bottom: 10%;
-    left: 25%;
+    left: 50%;
     margin-left: -80px;
 }
 
@@ -28,8 +28,6 @@
 /* Toggle this class - hide and show the popup */
 .card-text .show {
     visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
     -webkit-animation: fadeOut 2.2s;
     animation: fadeOut 2.2s;
 }
