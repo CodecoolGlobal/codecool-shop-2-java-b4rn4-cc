@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -78,4 +79,13 @@ public class ProductServiceTest {
 
     }
 
+
+    @Test
+    public void getProductById_nonExistingId_returnsNull() {
+        int nonExistingId = -1;
+
+        ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+
+        assertNull(testService.getProductDaoById(nonExistingId));
+    }
 }
