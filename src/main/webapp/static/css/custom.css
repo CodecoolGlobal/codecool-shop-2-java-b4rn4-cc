@@ -52,6 +52,20 @@ nav div:last-child a {
     border-color: #8EB7EB;
 }
 
+#welcome {
+    display: flex;
+    justify-content: end;
+    padding-right: 30px;
+}
+
+#welcome p {
+    border: #8eb7eb 1px solid;
+    padding: 15px;
+    border-radius: 50px;
+    background: linear-gradient(to bottom right, #B8D7FF, #8EB7EB);
+    letter-spacing: 0.8px;
+}
+
 .glyphicon {
     margin-right:5px;
 }
@@ -157,4 +171,9 @@ nav div:last-child a {
 h1 {
     font-size: 70px;
     letter-spacing: 1.5px;
+}
+
+#login {
+    margin: 25vh auto;
+    justify-content: center;
 }
