@@ -12,8 +12,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -54,5 +57,55 @@ public class ProductServiceTest {
         ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
 
         assertEquals(testCategory, testService.getProductCategory(id));
+    }
+
+    @Test
+    public void getProductsForCategory_existingCategoryId_ListOfProducts() {
+        ProductCategory category = new ProductCategory("Watch", "hardware", "");
+
+        Product prod1 = new Product("Prod1", BigDecimal.valueOf(100D), "HUF", "", category, testSupplier);
+        Product prod2 = new Product("Prod2", BigDecimal.valueOf(100D), "HUF", "", category, testSupplier);
+        int testId = 2;
+
+        List<Product> expected = new ArrayList<>();
+        expected.add(prod1);
+        expected.add(prod2);
+
+        ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+        when(mockCategoryDao.find(testId)).thenReturn(category);
+        when(mockProductDao.getBy(category)).thenReturn(expected);
+
+        assertEquals(expected, testService.getProductsForCategory(testId));
+
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 2, 3, 5, -7})
+    public void getProductById_nonExistingId_returnsNull(int nonExistingId) {
+
+        ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+//        when(mockProductDao.find(nonExistingId)).thenReturn(null);
+
+        assertNull(testService.getProductDaoById(nonExistingId));
+    }
+
+    @Test
+    public void getProductsForCategory_nonExistingCategoryId_returnsEmptyList() {
+        int nonExistingId = 1;
+        List<Product> expected = new ArrayList<>();
+
+        ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+
+        assertEquals(expected, testService.getProductsForCategory(nonExistingId));
+    }
+
+    @Test
+    public void getProductsForCategory_invalidId_returnsNull() {
+        int invalidId = -1;
+
+        ProductService testService = new ProductService(mockProductDao, mockCategoryDao, mockSupplierDao);
+
+        assertNull(testService.getProductsForCategory(invalidId));
     }
 }
