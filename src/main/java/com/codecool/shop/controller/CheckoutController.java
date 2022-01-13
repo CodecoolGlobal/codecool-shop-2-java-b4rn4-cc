@@ -14,10 +14,7 @@ import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/checkout"})
@@ -34,15 +31,8 @@ public class CheckoutController extends HttpServlet {
         CustomerService customerService = new CustomerService(customerDao);
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        Cookie[] cookies = req.getCookies();
-        String userEmail = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) {
-                    userEmail = cookie.getValue();
-                }
-            }
-        }
+        HttpSession session = req.getSession();
+        String userEmail = (String) session.getAttribute("user");
         Customer customer = customerService.getCostumerByEmail(userEmail);
         context.setVariable("products", cartService.getProductInCart(customer));
         context.setVariable("price", cartService.sumPrice(customer));

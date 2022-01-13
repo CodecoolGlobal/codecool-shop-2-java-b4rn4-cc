@@ -4,13 +4,8 @@ function addButton() {
     for (const addButton of addButtonList){
         addButton.addEventListener("click", () => {
             const id = addButton.id;
-            const cookies = document.cookie;
-            const user = cookies.slice(0, 4);
-            if (user === "user"){
-                postData(`/cart?id=${id}`);
-            }else{
-                alert("Please Sing in!")
-            }
+            const user = sessionStorage
+            postData(`/cart?id=${id}`);
         });
     }
 

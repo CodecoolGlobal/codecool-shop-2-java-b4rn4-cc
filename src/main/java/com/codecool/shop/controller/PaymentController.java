@@ -15,10 +15,7 @@ import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 
@@ -36,15 +33,8 @@ public class PaymentController extends HttpServlet {
         EmailSender sender = new EmailSender();
         CustomerDao customerDao = daoRepository.getCustomerDao();
         CustomerService customerService = new CustomerService(customerDao);
-        Cookie[] cookies = request.getCookies();
-        String userEmail = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) {
-                    userEmail = cookie.getValue();
-                }
-            }
-        }
+        HttpSession session = request.getSession();
+        String userEmail = (String) session.getAttribute("user");
         Customer user = customerService.getCostumerByEmail(userEmail);
         cartService.payOrder(user);
         String emailAddress = customer.getEmail();
@@ -75,15 +65,8 @@ public class PaymentController extends HttpServlet {
         CustomerService customerService = new CustomerService(customerDao);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
-        Cookie[] cookies = request.getCookies();
-        String userEmail = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) {
-                    userEmail = cookie.getValue();
-                }
-            }
-        }
+        HttpSession session = request.getSession();
+        String userEmail = (String) session.getAttribute("user");
         Customer user = customerService.getCostumerByEmail(userEmail);
         context.setVariable("cart", cartService.getProductInCart(user));
         context.setVariable("totalPrice", cartService.sumPrice(user));

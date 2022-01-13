@@ -14,10 +14,7 @@ import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/cart"})
@@ -37,46 +34,34 @@ public class CartController extends HttpServlet {
         ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStore);
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
         CustomerService customerService = new CustomerService(customerDao);
-        Cookie[] cookies = request.getCookies();
-        String userEmail = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) {
-                    userEmail = cookie.getValue();
-                }
-            }
-            Customer customer = customerService.getCostumerByEmail(userEmail);
-            String productID = request.getParameter("id");
-            cartService.addToCart(customer, productService.getProductDaoById(Integer.parseInt(productID)));
-        }
+        HttpSession session = request.getSession();
+        String userEmail = (String) session.getAttribute("user");
+        Customer customer = customerService.getCostumerByEmail(userEmail);
+        String productID = request.getParameter("id");
+        cartService.addToCart(customer, productService.getProductDaoById(Integer.parseInt(productID)));
     }
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DaoRepository daoRepository = DaoRepository.getInstance();
-        resp.setContentType("text/html");
-        resp.setCharacterEncoding("utf-8");
-        CartDao cartDataStore = daoRepository.getCartDao();
-        ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
-        CustomerDao customerDataStore = daoRepository.getCustomerDao();
-        CartService cartService = new CartService(cartDataStore, productInCartDataStore);
-        CustomerService customerService = new CustomerService(customerDataStore);
-        Cookie[] cookies = req.getCookies();
-        String userEmail = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) {
-                    userEmail = cookie.getValue();
-                }
-            }
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") != null) {
+            DaoRepository daoRepository = DaoRepository.getInstance();
+            resp.setContentType("text/html");
+            resp.setCharacterEncoding("utf-8");
+            CartDao cartDataStore = daoRepository.getCartDao();
+            ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
+            CustomerDao customerDataStore = daoRepository.getCustomerDao();
+            CartService cartService = new CartService(cartDataStore, productInCartDataStore);
+            CustomerService customerService = new CustomerService(customerDataStore);
+            String userEmail = (String) session.getAttribute("user");
+            Customer customer = customerService.getCostumerByEmail(userEmail);
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            context.setVariable("products", cartService.getProductInCart(customer));
+            context.setVariable("price", cartService.sumPrice(customer));
+            engine.process("product/cart.html", context, resp.getWriter());
         }
-        Customer customer = customerService.getCostumerByEmail(userEmail);
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("products", cartService.getProductInCart(customer));
-        context.setVariable("price", cartService.sumPrice(customer));
-        engine.process("product/cart.html", context, resp.getWriter());
     }
 
 
@@ -87,15 +72,8 @@ public class CartController extends HttpServlet {
         ProductInCartDao productInCartDataStore = daoRepository.getProductInCartDao();
         CustomerDao customerDataStore = daoRepository.getCustomerDao();
         CustomerService customerService = new CustomerService(customerDataStore);
-        Cookie[] cookies = req.getCookies();
-        String userEmail = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) {
-                    userEmail = cookie.getValue();
-                }
-            }
-        }
+        HttpSession session = req.getSession();
+        String userEmail = (String) session.getAttribute("user");
         Customer customer = customerService.getCostumerByEmail(userEmail);
         CartService cartService = new CartService(cartDataStore, productInCartDataStore);
         String productID = req.getParameter("id");
