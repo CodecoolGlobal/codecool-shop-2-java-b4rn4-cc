@@ -11,12 +11,12 @@ public class CustomerService {
     }
 
     public boolean registration(Customer customer) {
-//        if (customerDao.findByEmail(customer.getEmail()) == null) {
-        customerDao.add(customer);
-        return true;
-//        }else{
-//            return false;
-//        }
+        if (getCostumerByEmail(customer.getEmail()) == null) {
+            customerDao.add(customer);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Customer getCostumerByEmail(String email) {
@@ -24,10 +24,15 @@ public class CustomerService {
     }
 
     public boolean loginSuccess(Customer customer) {
-        if (getCostumerByEmail(customer.getEmail()).getPassword().equals(customer.getPassword())) {
-            return true;
-        } else {
+        if (getCostumerByEmail(customer.getEmail()) != null){
+            if (getCostumerByEmail(customer.getEmail()).getPassword().equals(customer.getPassword())) {
+                return true;
+            } else {
+                return false;
+            }
+        }else{
             return false;
         }
+
     }
 }
