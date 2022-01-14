@@ -2,7 +2,7 @@ package com.codecool.shop.dao.implementation.database;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.service.ErrorLogging;
+import com.codecool.shop.logger.ConsoleLogger;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -43,7 +43,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
             return category;
         } catch (SQLException e) {
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
             throw new RuntimeException(e);
         }
     }
@@ -72,7 +72,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             }
             return categories;
         } catch (SQLException e) {
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
             throw new RuntimeException(e);
         }
     }

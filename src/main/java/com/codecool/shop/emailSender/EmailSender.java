@@ -1,6 +1,6 @@
 package com.codecool.shop.emailSender;
 
-import com.codecool.shop.service.ErrorLogging;
+import com.codecool.shop.logger.ConsoleLogger;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -42,7 +42,7 @@ public class EmailSender {
 
             Transport.send(message);
         } catch (MessagingException e) {
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
             throw new RuntimeException(e);
         }
     }

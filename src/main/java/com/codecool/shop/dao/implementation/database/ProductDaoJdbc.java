@@ -4,7 +4,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import com.codecool.shop.service.ErrorLogging;
+import com.codecool.shop.logger.ConsoleLogger;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -50,7 +50,7 @@ public class ProductDaoJdbc implements ProductDao {
             return result;
 
         } catch (SQLException e) {
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
             throw new RuntimeException(e);
         }
     }
@@ -88,7 +88,7 @@ public class ProductDaoJdbc implements ProductDao {
             }
             return results;
         } catch (SQLException e) {
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
             throw new RuntimeException(e);
         }
     }
@@ -126,7 +126,7 @@ public class ProductDaoJdbc implements ProductDao {
             }
             return result;
         } catch (SQLException e) {
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
             throw new RuntimeException(e);
         }
     }
@@ -163,7 +163,7 @@ public class ProductDaoJdbc implements ProductDao {
             }
             return result;
         } catch (SQLException e) {
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
             throw new RuntimeException(e);
         }
     }

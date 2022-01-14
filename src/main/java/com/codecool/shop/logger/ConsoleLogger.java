@@ -1,4 +1,4 @@
-package com.codecool.shop.service;
+package com.codecool.shop.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,9 +7,9 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ErrorLogging {
+public class ConsoleLogger {
 
-    private static final Logger logger = LoggerFactory.getLogger(ErrorLogging.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConsoleLogger.class);
 
     public static void log(Exception e) {
         // SQLEx, IOEx, NullPointerEx, MessagingEx, IllegalAccessEx

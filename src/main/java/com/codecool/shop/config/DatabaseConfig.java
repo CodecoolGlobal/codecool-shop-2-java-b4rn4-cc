@@ -1,6 +1,6 @@
 package com.codecool.shop.config;
 
-import com.codecool.shop.service.ErrorLogging;
+import com.codecool.shop.logger.ConsoleLogger;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class DatabaseConfig {
             conProps.load(new FileInputStream(conConfigPath));
         } catch (IOException e) {
             e.printStackTrace();
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
         }
     }
 

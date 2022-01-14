@@ -7,7 +7,7 @@ import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import com.codecool.shop.service.ErrorLogging;
+import com.codecool.shop.logger.ConsoleLogger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -112,11 +112,11 @@ public class Initializer implements ServletContextListener {
                     databaseManager.setup();
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    ErrorLogging.log(e);
+                    ConsoleLogger.log(e);
                 }
             }
         } catch (NullPointerException e) {
-            ErrorLogging.log(e);
+            ConsoleLogger.log(e);
         }
     }
 
